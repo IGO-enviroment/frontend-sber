@@ -1,6 +1,33 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
+import { Controller, useForm } from "react-hook-form"
+import { LoginFeature } from "../../../feature/auth-by-email"
+import { useSelector } from "react-redux"
+import { useDispatch } from "../../../shared/lib/redux"
+import { UserFeature } from "../../../entities/user"
+import { Navigate } from "react-router-dom"
+import { RoutePaths } from "../../../app/config/route/config.tsx"
 
 export function LoginPage() {
+  const isLoading = useSelector(LoginFeature.selectors.isFetching)
+  const isUserLogged = useSelector(UserFeature.selectors.data)
+  const error = useSelector(LoginFeature.selectors.error)
+  const dispatch = useDispatch()
+
+  const { control, watch } = useForm({
+    values: {
+      email: "",
+      password: "",
+    },
+  })
+
+  const onSubmit = () => {
+    dispatch(LoginFeature.thunk.loginByEmail(watch()))
+  }
+
+  if (isUserLogged) {
+    return <Navigate to={RoutePaths.main} replace />
+  }
+
   return (
     <Box
       sx={{
@@ -26,13 +53,47 @@ export function LoginPage() {
           width: 1,
         }}
       >
-        <TextField sx={{ flexGrow: 1, width: 1 }} label="Почта" />
-        <TextField
-          sx={{ flexGrow: 1, width: 1 }}
-          type="password"
-          label="Пароль"
+        <Controller
+          control={control}
+          name={"email"}
+          render={({ field: { value, onChange } }) => (
+            <TextField
+              sx={{ flexGrow: 1, width: 1 }}
+              label="Почта"
+              value={value}
+              onChange={(event) => {
+                onChange(event.target.value)
+                dispatch(LoginFeature.actions.resetError("email"))
+              }}
+              error={Boolean(error?.email)}
+              helperText={error?.email}
+            />
+          )}
         />
-        <Button sx={{ width: 1, mt: 2 }} variant="outlined">
+        <Controller
+          control={control}
+          name={"password"}
+          render={({ field: { value, onChange } }) => (
+            <TextField
+              sx={{ flexGrow: 1, width: 1 }}
+              label="Пароль"
+              value={value}
+              type="password"
+              error={Boolean(error?.password)}
+              helperText={error?.password}
+              onChange={(event) => {
+                onChange(event.target.value)
+                dispatch(LoginFeature.actions.resetError("password"))
+              }}
+            />
+          )}
+        />
+        <Button
+          disabled={isLoading}
+          onClick={onSubmit}
+          sx={{ width: 1, mt: 2 }}
+          variant="outlined"
+        >
           Войти
         </Button>
       </Box>

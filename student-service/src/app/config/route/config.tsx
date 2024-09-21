@@ -2,6 +2,10 @@ import { createBrowserRouter } from "react-router-dom"
 import { BaseLayout } from "../../../widgets/layout"
 import { ProfilePage } from "../../../pages/profile"
 import { LoginPage } from "../../../pages/login/ui"
+import { RequireAuth } from "../../providers/router/ui/require-auth.tsx"
+import { Practices } from "../../../pages/practices"
+import { Practice } from "../../../pages/practice"
+import { Organization } from "../../../pages/organization"
 
 export enum AppRoutes {
   MAIN = "main",
@@ -10,6 +14,8 @@ export enum AppRoutes {
   NOT_FOUND = "not-found",
   LOGIN = "login",
   OVERVIEW = "overview",
+  PRACTICES = "practices",
+  ORGANIZATION = "organization",
 }
 
 export const RoutePaths: Record<AppRoutes, string> = {
@@ -19,12 +25,18 @@ export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.NOT_FOUND]: "*",
   [AppRoutes.LOGIN]: "/login",
   [AppRoutes.OVERVIEW]: "/overview",
+  [AppRoutes.PRACTICES]: "/practices",
+  [AppRoutes.ORGANIZATION]: "/organization",
 }
 
 export const Config = createBrowserRouter([
   {
     path: "",
-    element: <BaseLayout />,
+    element: (
+      <RequireAuth>
+        <BaseLayout />
+      </RequireAuth>
+    ),
     children: [
       {
         path: RoutePaths.main,
@@ -33,6 +45,18 @@ export const Config = createBrowserRouter([
       {
         path: RoutePaths.profile,
         element: <ProfilePage />,
+      },
+      {
+        path: RoutePaths.practices,
+        element: <Practices />,
+      },
+      {
+        path: `${RoutePaths.practices}/:id`,
+        element: <Practice />,
+      },
+      {
+        path: `${RoutePaths.organization}/:id`,
+        element: <Organization />,
       },
     ],
   },

@@ -1,17 +1,15 @@
 import "./App.css"
-import { Router } from "./providers/router"
-import { Container } from "@mui/material"
-import { Header } from "../widgets/layout/header"
+import { RouterConfig } from "./config/route"
+import { RouterProvider } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { UserFeature } from "../entities/user"
 
-function App() {
-  return (
-    <>
-      <Header />
-      <Container sx={{ paddingTop: "40px" }} maxWidth="xl">
-        <Router />
-      </Container>
-    </>
-  )
+export function App() {
+  const userFetched = useSelector(UserFeature.selectors.wasFetched)
+
+  if (!userFetched) {
+    return null //todo loading
+  }
+
+  return <RouterProvider router={RouterConfig} />
 }
-
-export default App
