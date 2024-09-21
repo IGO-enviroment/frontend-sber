@@ -4,6 +4,9 @@ import { LoginPage } from '../../../pages/login';
 import { Practices } from '../../../pages/practices';
 import { SignUpPage } from '../../../pages/sign-up';
 import { Practice } from '../../../pages/practice';
+import { DetailPageLayout } from '../../../shared/layouts/detail-layout';
+import { Interns } from '../../../pages/interns';
+import { Candidates } from '../../../pages/candidates';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -20,25 +23,19 @@ export const Config = createBrowserRouter([
       },
       {
         path: 'practices/:practicesID',
-        element: <Practice />,
+        element: <DetailPageLayout  title='Практика'/>,
         children: [
           {
-            path: '/',
+            path: 'info',
             element: <Practice />
           },
           {
             path: 'candidates',
-            element: 'ff',
-            children: [
-              {
-                path: ':candidatesID',
-                element: 'fooo',
-              },
-            ],
+            element: <Candidates/>,
           },
           {
             path: 'interns',
-            element: 'fff',
+            element: <Interns/>,
           },
           {
             path: 'candidates:candidatID',

@@ -23,6 +23,11 @@ export const components: Components<Omit<Theme, 'components'>> = {
       component: LinkBehavior,
     } as LinkProps,
   },
+  MuiTab: {
+    defaultProps: {
+      component: LinkBehavior
+    }
+  },
   MuiList: {
     defaultProps: {
       disablePadding: true,
