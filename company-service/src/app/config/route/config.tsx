@@ -1,6 +1,7 @@
 import {createBrowserRouter, RouteProps} from "react-router-dom";
 import { BaseLayout } from "../../../shared/layouts/base-layout";
 import { LoginPage } from "../../../pages/login";
+import { Practices } from "../../../pages/practices";
 
 
 export type AppRouteProps = RouteProps & {
@@ -15,7 +16,7 @@ export const Config = createBrowserRouter([
     element: <BaseLayout/>,
     children: [  {
       path: 'practices',
-      element: <div>practices</div>,
+      element: <Practices/>,
       children: [
         {
           path: ":practicesID",
@@ -50,6 +51,10 @@ export const Config = createBrowserRouter([
   },
   {
     path: 'login',
+    element: <LoginPage/>,
+  },
+  {
+    path: 'sign-up',
     element: <LoginPage/>,
   },
 ]);
