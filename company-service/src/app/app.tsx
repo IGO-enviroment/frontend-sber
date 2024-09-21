@@ -8,6 +8,7 @@ import { setupWorker } from 'msw';
 import { getMocks } from '../shared/mocks';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from '../shared/mui';
+import { SnackbarProvider } from 'notistack';
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SnackbarProvider maxSnack={5}>
       <StoreProvider>
         <CssBaseline />
         <ThemeProvider theme={theme}>
@@ -26,6 +28,7 @@ export const App = () => {
           </ErrorBoundary>
         </ThemeProvider>
       </StoreProvider>
+      </SnackbarProvider>
     </QueryClientProvider>
   );
 };

@@ -23,11 +23,6 @@ export const components: Components<Omit<Theme, 'components'>> = {
       component: LinkBehavior,
     } as LinkProps,
   },
-  MuiPaper: {
-    defaultProps: {
-      elevation: 0,
-    },
-  },
   MuiList: {
     defaultProps: {
       disablePadding: true,
@@ -43,8 +38,9 @@ export const components: Components<Omit<Theme, 'components'>> = {
       transitionDuration: 500,
       anchor: 'right',
       sx: {
+        zIndex: 111111,
         '& .MuiDrawer-paper': {
-          width: '50vw',
+          width: '33vw',
         },
       },
     },
