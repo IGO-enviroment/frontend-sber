@@ -1,7 +1,6 @@
 import { BaseQueryApi, FetchArgs } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
-import { Token } from '../types';
 import { userActions } from '@/entities/User/model/slice/userSlice';
 import { baseQuery } from './baseQuery';
 
@@ -15,34 +14,9 @@ export const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQue
     if (typeof result?.error?.status === 'number' && AUTH_ERROR_CODES.has(result?.error?.status as number)) {
         if (!mutex.isLocked()) {
             const release = await mutex.acquire();
-            const tokens = await UserSecretStorageService.get();
             await UserSecretStorageService.clear();
-            try {
-                const refreshResult = await baseQuery(
-                    {
-                        url: '/api/auth',
-                        method: 'PUT',
-                        body: {
-                            refreshToken: tokens?.refreshToken,
-                        },
-                    },
-                    api,
-                    extraOptions,
-                );
-                if (
-                    refreshResult.data &&
-                    typeof refreshResult.data === 'object' &&
-                    'token' in refreshResult.data &&
-                    'refreshToken' in refreshResult.data
-                ) {
-                    await UserSecretStorageService.save(refreshResult.data as Token);
-                    result = await baseQuery(args, api, extraOptions);
-                } else {
-                    api.dispatch(userActions.logout());
-                }
-            } finally {
-                release();
-            }
+            api.dispatch(userActions.logout());
+            release();
         } else {
             await mutex.waitForUnlock();
             result = await baseQuery(args, api, extraOptions);

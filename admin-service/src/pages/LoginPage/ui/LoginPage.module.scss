@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  height: 100vh;
+}
+
+.formWrapper {
+  width: var(--login-form-width);
+  padding: calc(2 * var(--space-l));
+  border-radius: calc(1.5 * var(--border-radius));
+  z-index: 1;
+}
+
+.form {
+  width: 100%;
+}
