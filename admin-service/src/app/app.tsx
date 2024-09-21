@@ -1,12 +1,23 @@
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch';
 import './App.css'
-import {Router} from "./providers/router";
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUser } from '@/entities/User/model/services/getUser';
+import { getUserInited } from '@/entities/User/model/selectors/getUserIsInited/getUserIsInited';
+import { AppRouter } from './providers/router/ui/router';
 
 function App() {
-  return (
-    <div>
-        <Router/>
-    </div>
-  )
+  const dispatch = useAppDispatch();
+  const isInited = useSelector(getUserInited);
+
+  useEffect(() => {
+    // TODO: исправить
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dispatch(getUser() as any);
+  }, [dispatch]);
+
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{isInited && <AppRouter />}</>;
 }
 
 export default App
