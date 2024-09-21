@@ -12,6 +12,13 @@ export const practice: Practice = {
   limit: 100,
   views: 100,
   rating: 10,
+  status: "pending",
+}
+
+export const statuses = {
+  pending: { label: "Ожидает решения", color: "info" as const },
+  approved: { label: "Заявка одобрена", color: "success" as const },
+  rejected: { label: "Заявка отклонена", color: "error" as const },
 }
 
 export const practices = Array.from({ length: 20 }).fill(practice) as Practice[]

@@ -1,30 +1,33 @@
-import { Box, Stack, TextField } from "@mui/material"
+import { Box, TextField } from "@mui/material"
 import { practices } from "../../entities/practice/const.ts"
-import { PracticeCard } from "../../entities/practice/ui/practice-card"
 import { useForm } from "react-hook-form"
+import { PracticeList } from "../../entities/practice/ui/practice-list"
+
+const statuses = [
+  { label: "Все статусы", id: "" },
+  { label: "Ожидает", id: "waiting" },
+  { label: "Подтверждена", id: "approved" },
+]
 
 export function Practices() {
   const { register } = useForm({
     values: {
       title: "",
+      status: [statuses[0].label],
     },
   })
 
   return (
     <Box>
-      <Box>
+      <Box sx={{ mb: 3 }}>
         <TextField
           {...register("title")}
-          sx={{ width: 1, mb: 5 }}
+          sx={{ width: 1, mb: 1 }}
           variant="outlined"
           placeholder="Название практики, компании"
         />
       </Box>
-      <Stack sx={{ gap: 5 }}>
-        {practices.map((props) => (
-          <PracticeCard {...props} />
-        ))}
-      </Stack>
+      <PracticeList practices={practices} />
     </Box>
   )
 }

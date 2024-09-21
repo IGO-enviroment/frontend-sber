@@ -24,6 +24,9 @@ export const components: Components<Omit<Theme, "components">> = {
   MuiLink: {
     defaultProps: {
       component: LinkBehavior,
+      textDecoration: "none",
+      underline: "none",
+      display: "block",
     } as LinkProps,
   },
   MuiPaper: {
@@ -37,17 +40,6 @@ export const components: Components<Omit<Theme, "components">> = {
   MuiListItem: {
     defaultProps: {
       disablePadding: true,
-    },
-  },
-  MuiDrawer: {
-    defaultProps: {
-      transitionDuration: 500,
-      anchor: "right",
-      sx: {
-        "& .MuiDrawer-paper": {
-          width: "50vw",
-        },
-      },
     },
   },
   MuiSnackbar: {
