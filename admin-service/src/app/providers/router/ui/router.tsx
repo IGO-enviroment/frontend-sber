@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import {AppRouteProps} from "../../../config/route/config.tsx";
 import {RouterConfig} from "../../../config/route";
 
-export function Router() {
+export function AppRouter() {
   const renderWithWrapper = useCallback(
     ({ authOnly, element, ...route }: AppRouteProps) => {
       const page = (
@@ -11,8 +11,6 @@ export function Router() {
           <Suspense fallback={null}>{element}</Suspense>
         </div>
       );
-
-      console.log(route.path)
 
       return (
         <Route

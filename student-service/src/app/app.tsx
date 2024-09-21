@@ -1,11 +1,16 @@
-import './App.css'
-import {Router} from "./providers/router";
+import "./App.css"
+import { Router } from "./providers/router"
+import { Container } from "@mui/material"
+import { Header } from "../widgets/layout/header"
 
 function App() {
   return (
-    <div>
-        <Router/>
-    </div>
+    <>
+      <Header />
+      <Container sx={{ paddingTop: "40px" }} maxWidth="xl">
+        <Router />
+      </Container>
+    </>
   )
 }
 
