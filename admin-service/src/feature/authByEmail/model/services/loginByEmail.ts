@@ -15,6 +15,8 @@ export const loginByEmail = createAsyncThunk<void, void, ThunkApiConfig<string>>
         try {
             const email = getLoginEmail(getState());
             const password = getLoginPassword(getState());
+            console.log(getState())
+            console.log(getState().loginForm.email);
             await dispatch(getTokenByEmail({ email, password })).unwrap();
             await dispatch(getUser()).unwrap();
         } catch {

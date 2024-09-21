@@ -1,6 +1,6 @@
 import {IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material';
 import classNames from 'classnames'
-import { ChangeEvent, memo, useCallback, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -12,18 +12,19 @@ import { loginByEmail } from '../../model/services/loginByEmail';
 import { getLoginStatus } from '../../model/selectors/getLoginStatus/getLoginStatus';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
-
+import { getLoginError } from '../../model/selectors/getLoginByError/getLoginByError';
+import { toast } from 'react-toastify';
 export interface LoginFormProps {
     className?: string;
-    onSuccess?: () => void;
 }
 
 const LoginForm = memo((props: LoginFormProps) => {
-    const { className, onSuccess } = props;
+    const { className } = props;
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useAppDispatch();
     const status = useSelector(getLoginStatus);
+    const apiError = useSelector(getLoginError);
 
     const onChangeEmail = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +54,16 @@ const LoginForm = memo((props: LoginFormProps) => {
 
         //TODO: исправить
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const result = await dispatch(loginByEmail() as any);
-        if (result.meta.requestStatus === 'fulfilled') {
-            onSuccess?.();
-        }
-    }, [dispatch, onSuccess]);
+        dispatch(loginByEmail() as any)
+    }, [dispatch]);
+
+    useEffect(() => {
+      if (apiError) {
+        console.log(apiError);
+        toast.error(apiError);
+      }
+  }, [apiError]);
+
 
 
     return (
@@ -94,9 +100,6 @@ const LoginForm = memo((props: LoginFormProps) => {
                                 ),
                             }}
                         />
-                        <Typography variant="body1" color="primary" alignSelf="flex-end">
-                            Забыли пароль?
-                        </Typography>
                     </Stack>
                     <LoadingButton
                         fullWidth
