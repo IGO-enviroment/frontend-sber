@@ -1,40 +1,55 @@
-import {RouteProps} from "react-router-dom";
+import {createBrowserRouter, RouteProps} from "react-router-dom";
+import { BaseLayout } from "../../../shared/layouts/base-layout";
+import { LoginPage } from "../../../pages/login";
 
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
 };
 
-export enum AppRoutes {
-  MAIN = "main",
-  ABOUT = "about",
-  PROFILE = "profile",
-  NOT_FOUND = "not-found",
-}
 
-export const RoutePaths: Record<AppRoutes, string> = {
-  [AppRoutes.MAIN]: "/",
-  [AppRoutes.ABOUT]: "/about",
-  [AppRoutes.PROFILE]: "/profile",
-  [AppRoutes.NOT_FOUND]: "*",
-};
 
-export const Config: AppRouteProps[] = [
+export const Config = createBrowserRouter([
   {
-    path: RoutePaths.main,
-    element: <div>main</div>
+    path: '',
+    element: <BaseLayout/>,
+    children: [  {
+      path: 'practices',
+      element: <div>practices</div>,
+      children: [
+        {
+          path: ":practicesID",
+          element: 'dd',
+          children : [
+            {
+              path: "candidates",
+              element: 'ff',
+              children: [
+                {
+                  path: ':candidatesID',
+                  element: 'fooo'
+                }
+              ]
+            }, 
+            {
+              path: 'interns',
+              element: 'fff'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      path: 'profile',
+      element: <div>profile</div>,
+    },
+    {
+      path: "not-found",
+      element: 'not-found'
+    },]
   },
   {
-    path: RoutePaths.about,
-    element: <div>about</div>
+    path: 'login',
+    element: <LoginPage/>,
   },
-  {
-    path: RoutePaths.profile,
-    element: <div>profile</div>,
-    authOnly: true,
-  },
-  {
-    path: RoutePaths["not-found"],
-    element: 'not-found'
-  },
-];
+]);
