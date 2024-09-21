@@ -3,6 +3,7 @@ import ForbiddenPage from '@/pages/ForbiddenPage/ui/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
 import MainPage from '@/pages/MainPage/ui/MainPage';
 import { StudentInvatationPage } from '@/pages/StudentInvatationPage/ui/StudentInvatationPage.async';
+import UniversityAcceptancePage from '@/pages/UniversityAcceptancePage/ui/UniversityAcceptancePage';
 import {RouteProps} from "react-router-dom";
 
 
@@ -18,6 +19,7 @@ export enum AppRoutes {
   NOT_FOUND = "not-found",
   FORBIDDEN = "forbidden",
   STUDENT_INVATATION = 'student-invatation',
+  UNIVERSITY_ACCEPTANCE_PAGE = 'university-acceptance'
 }
 
 export const RoutePaths: Record<AppRoutes, string> = {
@@ -25,10 +27,16 @@ export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.STUDENT_INVATATION]: "student-invitation",
   [AppRoutes.LOGIN]: "/login",
   [AppRoutes.FORBIDDEN]: '/forbidden',
+  [AppRoutes.UNIVERSITY_ACCEPTANCE_PAGE]: 'university-acceptance',
   [AppRoutes.NOT_FOUND]: "*",
 };
 
 export const Config: AppRoutesProps[] = [
+  {
+    path: RoutePaths['university-acceptance'],
+    element: <UniversityAcceptancePage />,
+    hasLayout: true,
+  },
   {
     path: RoutePaths.main,
     element: <MainPage></MainPage>,
@@ -49,7 +57,7 @@ export const Config: AppRoutesProps[] = [
   {
     path: RoutePaths.forbidden,
     element: <ForbiddenPage />,
-    authOnly: false,
+    authOnly: true,
   },
   {
     path: RoutePaths["not-found"],
