@@ -1,19 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './app/App.tsx'
-import './index.css'
-import {BrowserRouter} from "react-router-dom";
-import {StoreProvider} from "./app/providers/store";
-import {ErrorBoundary} from "./app/providers/error-boundary";
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import "./index.css"
+import { StoreProvider } from "./app/providers/store"
+import { ErrorBoundary } from "./app/providers/error-boundary"
+import { CssBaseline } from "@mui/material"
+import { RouterProvider } from "react-router-dom"
+import { RouterConfig } from "./app/config/route"
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-      <StoreProvider>
-          <ErrorBoundary>
-              <BrowserRouter>
-                  <App />
-              </BrowserRouter>
-          </ErrorBoundary>
-      </StoreProvider>
+    <StoreProvider>
+      <ErrorBoundary>
+        <CssBaseline />
+        <RouterProvider router={RouterConfig} />
+      </ErrorBoundary>
+    </StoreProvider>
   </StrictMode>,
 )

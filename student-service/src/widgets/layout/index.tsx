@@ -1,17 +1,14 @@
-import "./App.css"
-import { Router } from "./providers/router"
+import { Header } from "./header"
 import { Container } from "@mui/material"
-import { Header } from "../widgets/layout/header"
+import { Outlet } from "react-router-dom"
 
-function App() {
+export const BaseLayout = () => {
   return (
     <>
       <Header />
       <Container sx={{ paddingTop: "40px" }} maxWidth="xl">
-        <Router />
+        <Outlet />
       </Container>
     </>
   )
 }
-
-export default App
