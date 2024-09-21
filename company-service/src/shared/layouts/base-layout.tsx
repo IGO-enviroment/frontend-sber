@@ -1,6 +1,9 @@
 import { AppProvider, DashboardLayout, Navigation, Router, Session } from '@toolpad/core';
 import { FC, useMemo, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { theme } from '../mui';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+
 
 const NAVIGATION: Navigation = [
   {
@@ -50,7 +53,9 @@ export const BaseLayout: FC = () => {
   return (
     <AppProvider navigation={NAVIGATION} router={router} authentication={authentication} session={session}>
       <DashboardLayout>
+         <ThemeProvider theme={theme} >
         <Outlet />
+        </ThemeProvider>
       </DashboardLayout>
     </AppProvider>
   );

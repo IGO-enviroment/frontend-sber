@@ -12,8 +12,19 @@ export const getAllPractices = (
     params?: AnyObjectType,
     options?: SecondParameter<typeof customAxiosInstance>,
   ) => {
-    return customAxiosInstance(
+    return customAxiosInstance<PracticesDTO[]>(
       { url: `/practices`, method: 'get', params },
       options,
     );
   };
+
+
+  export interface PracticesDTO {
+    views: number,
+    title: string,
+    id: number,
+    requests_count: number,
+    aprove_requests_count: number,
+    limit: number
+    description?: string
+  }
