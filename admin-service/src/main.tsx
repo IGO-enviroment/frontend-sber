@@ -6,6 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 import {StoreProvider} from "./app/providers/store";
 import {ErrorBoundary} from "./app/providers/error-boundary";
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,6 +17,6 @@ createRoot(document.getElementById('root')!).render(
               </BrowserRouter>
           </ErrorBoundary>
       </StoreProvider>
-      <ToastContainer limit={3} position="bottom-center" autoClose={2000} closeOnClick />
+      <ToastContainer limit={3} position="top-right" autoClose={2000} closeOnClick />
   </StrictMode>,
 )

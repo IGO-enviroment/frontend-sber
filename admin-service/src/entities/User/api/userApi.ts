@@ -8,14 +8,14 @@ const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getUser: build.query<User, undefined>({
             query: () => ({
-                url: '/api/auth',
+                url: '/auth',
             }),
         }),
         getTokenByEmail: build.mutation<Token, Login>({
             query: (initialValues) => ({
-                url: '/api/auth',
+                url: '/auth/login',
                 method: 'POST',
-                body: initialValues,
+                body: {...initialValues},
             }),
             transformResponse: async (response: Token) => {
               await UserSecretStorageService.save(response);
