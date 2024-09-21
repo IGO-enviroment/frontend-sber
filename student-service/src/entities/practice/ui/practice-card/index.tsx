@@ -1,8 +1,9 @@
 import { Practice } from "../../types.ts"
 import { Box, Chip, Paper, Stack, Typography } from "@mui/material"
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded"
-import { Link } from "react-router-dom"
+import { Link } from "@mui/material"
 import { AppRoutes } from "../../../../app/config/route/config.tsx"
+import { statuses } from "../../const.ts"
 
 export const PracticeCard = ({
   id,
@@ -13,10 +14,18 @@ export const PracticeCard = ({
   limit,
   rating,
   views,
+  status,
 }: Practice) => {
   return (
-    <Link to={`/${AppRoutes.PRACTICES}/${id}`}>
-      <Paper sx={{ padding: "15px 25px", borderRadius: 5 }}>
+    <Link href={`/${AppRoutes.PRACTICES}/${id}`}>
+      <Paper
+        sx={{ padding: "15px 25px", borderRadius: 5, position: "relative" }}
+      >
+        <Chip
+          label={statuses[status].label}
+          color={statuses[status].color}
+          sx={{ position: "absolute", right: 15 }}
+        />
         <Stack sx={{ gap: 1 }}>
           <Typography variant={"h4"}>{title}</Typography>
           <Typography variant={"h6"}>{description}</Typography>

@@ -6,6 +6,7 @@ import { RequireAuth } from "../../providers/router/ui/require-auth.tsx"
 import { Practices } from "../../../pages/practices"
 import { Practice } from "../../../pages/practice"
 import { Organization } from "../../../pages/organization"
+import { Applications } from "../../../pages/applications/ui"
 
 export enum AppRoutes {
   MAIN = "main",
@@ -16,6 +17,8 @@ export enum AppRoutes {
   OVERVIEW = "overview",
   PRACTICES = "practices",
   ORGANIZATION = "organization",
+  PERSONAL = "personal",
+  APPLICATIONS = "applications",
 }
 
 export const RoutePaths: Record<AppRoutes, string> = {
@@ -27,6 +30,8 @@ export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.OVERVIEW]: "/overview",
   [AppRoutes.PRACTICES]: "/practices",
   [AppRoutes.ORGANIZATION]: "/organization",
+  [AppRoutes.PERSONAL]: "personal",
+  [AppRoutes.APPLICATIONS]: "applications",
 }
 
 export const Config = createBrowserRouter([
@@ -44,7 +49,16 @@ export const Config = createBrowserRouter([
       },
       {
         path: RoutePaths.profile,
-        element: <ProfilePage />,
+        children: [
+          {
+            path: RoutePaths.personal,
+            element: <ProfilePage />,
+          },
+          {
+            path: RoutePaths.applications,
+            element: <Applications />,
+          },
+        ],
       },
       {
         path: RoutePaths.practices,
