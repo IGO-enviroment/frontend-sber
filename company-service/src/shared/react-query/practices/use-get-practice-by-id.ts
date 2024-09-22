@@ -11,7 +11,7 @@ export const getPracticeById = (
     id: string, options?: SecondParameter<typeof customAxiosInstance>
   ) => {
     return customAxiosInstance<PracticesDTO>(
-      { url: `/practices/${id}`, method: 'get' },
+      { url: `/practice/${id}`, method: 'get' },
       options,
     );
   };

@@ -13,7 +13,7 @@ export const getAllPractices = (
     options?: SecondParameter<typeof customAxiosInstance>,
   ) => {
     return customAxiosInstance<PracticesDTO[]>(
-      { url: `/practices`, method: 'get', params },
+      { url: `/practice`, method: 'get', params },
       options,
     );
   };

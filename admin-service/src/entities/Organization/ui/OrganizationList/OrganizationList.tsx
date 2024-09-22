@@ -1,10 +1,10 @@
-import { ApplicationCard } from '../ApplicationCard/ApplicationCard';
 import { Skeleton, Stack, Typography } from '@mui/material';
-import { getApplicationQuery } from '../../api/applicationApi';
+import { getOrganizationQuery } from '../../api/organizationApi';
 import { typedMemo } from '@/shared/lib/helpers/typedMemo';
+import { UniversityCard } from '../OrganizationCard/OrganizationCard';
 
-export const ApplicationList = typedMemo(() => {
-  const {data, isFetching} = getApplicationQuery();
+export const OrganizationList = typedMemo(() => {
+  const {data, isFetching} = getOrganizationQuery();
 
 
     return (
@@ -18,7 +18,7 @@ export const ApplicationList = typedMemo(() => {
           <Skeleton variant="rounded" height={100} />
         </>}
         {!isFetching && !data?.length && <Typography>Ничего не найдено</Typography>}
-        {data?.map(application =>  <ApplicationCard key={application.id} application={application}></ApplicationCard>)}
+        {data?.map(application =>  <UniversityCard key={application.inn} application={application}></UniversityCard>)}
       </Stack>
  
     );

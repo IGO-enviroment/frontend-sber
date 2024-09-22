@@ -7,6 +7,7 @@ import { Practice } from '../../../pages/practice';
 import { DetailPageLayout } from '../../../shared/layouts/detail-layout';
 import { Interns } from '../../../pages/interns';
 import { Candidates } from '../../../pages/candidates';
+import { SignUpUniPage } from '../../../pages/sign-uo-uni';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -60,5 +61,9 @@ export const Config = createBrowserRouter([
   {
     path: 'sign-up',
     element: <SignUpPage />,
+  },
+  {
+    path: 'sign-up-university',
+    element: <SignUpUniPage />,
   },
 ]);
