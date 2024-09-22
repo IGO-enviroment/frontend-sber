@@ -42,7 +42,15 @@ export function LoginPage() {
         gap: 2,
       }}
     >
-      <Typography variant="h3">Вход</Typography>
+      <Typography variant="h4">Войти</Typography>
+      <Typography
+        sx={{ textAlign: "center", maxWidth: "450px", mt: "-12px" }}
+        variant="subtitle2"
+        color={"textDisabled"}
+      >
+        Уважаемый студент! Пожалуйста, введите данные, отправленные вашим
+        учебным заведением.
+      </Typography>
       <Box
         sx={{
           display: "flex",

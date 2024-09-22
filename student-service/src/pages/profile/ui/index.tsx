@@ -1,6 +1,8 @@
 import {
   Box,
+  Button,
   Chip,
+  IconButton,
   ListItem,
   TextField,
   ToggleButton,
@@ -13,8 +15,18 @@ import LockRoundedIcon from "@mui/icons-material/LockRounded"
 import { DateField } from "@mui/x-date-pickers/DateField"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { useForm } from "react-hook-form"
+import AddIcon from "@mui/icons-material/Add"
 
 export function ProfilePage() {
+  const { watch, register, resetField, setValue } = useForm({
+    defaultValues: {
+      about: "",
+      competencies: ["React", "Angular", "Vue", "English B2"],
+      "competencies-input": "",
+    },
+  })
+
   return (
     <Box>
       <Typography>Общая информация</Typography>
@@ -47,9 +59,6 @@ export function ProfilePage() {
             </ToggleButton>
             <ToggleButton value="жен">Жен</ToggleButton>
           </ToggleButtonGroup>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateField label="Дата рождения" />
-          </LocalizationProvider>
         </Box>
       </Box>
 
@@ -92,17 +101,49 @@ export function ProfilePage() {
         >
           <TextField multiline label="О себе" />
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              {["React", "Angular", "Vue", "English B2"].map((label) => (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: "wrap",
+              }}
+            >
+              {watch("competencies").map((label) => (
                 <ListItem sx={{ flexGrow: 0, width: "auto", padding: 0 }}>
-                  <Chip label={label} onDelete={() => {}} />
+                  <Chip
+                    label={label}
+                    onDelete={() => {
+                      setValue(
+                        "competencies",
+                        watch("competencies").filter((item) => item !== label),
+                      )
+                    }}
+                  />
                 </ListItem>
               ))}
             </Box>
-            <TextField
-              sx={{ mt: 1 }}
-              placeholder="Добавьте навык, например HTML"
-            />
+            <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <TextField
+                sx={{ mt: 1, flexGrow: 1 }}
+                placeholder="Добавьте навык, например HTML"
+                {...register("competencies-input")}
+              />
+              <Button
+                disabled={watch("competencies-input").length < 2}
+                color="success"
+                variant="outlined"
+                onClick={() => {
+                  setValue("competencies", [
+                    ...watch("competencies"),
+                    watch("competencies-input"),
+                  ])
+                  resetField("competencies-input")
+                }}
+              >
+                <AddIcon />
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>

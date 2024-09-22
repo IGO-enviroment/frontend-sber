@@ -3,10 +3,10 @@ import { DashboardLayout, AppProvider, Branding, Router } from "@toolpad/core"
 import { useDispatch } from "../../shared/lib/redux"
 import { UserFeature } from "../../entities/user"
 import { useMemo } from "react"
-import { AppRoutes, RoutePaths } from "../../app/config/route/config.tsx"
+import { RoutePaths } from "../../app/config/route/config.tsx"
 import AssignmentIndRoundedIcon from "@mui/icons-material/AssignmentIndRounded"
 import CasesRoundedIcon from "@mui/icons-material/CasesRounded"
-import { Box } from "@mui/material"
+import { Box, ThemeProvider } from "@mui/material"
 import { theme } from "../../shared/mui"
 
 const BrandingComponent: Branding = {
@@ -21,11 +21,9 @@ export const BaseLayout = () => {
 
   const authentication = useMemo(() => {
     return {
-      signIn: () => {
-        navigate("login")
-      },
       signOut: () => {
         dispatch(UserFeature.actions.logout())
+        navigate("login")
       },
     }
   }, [])
@@ -42,9 +40,10 @@ export const BaseLayout = () => {
     <AppProvider
       branding={BrandingComponent}
       router={router}
+      session={{ user: {} }}
       navigation={[
         {
-          segment: AppRoutes.PRACTICES,
+          segment: RoutePaths.main,
           title: "Практики",
           icon: <CasesRoundedIcon />,
         },
@@ -64,13 +63,14 @@ export const BaseLayout = () => {
           ],
         },
       ]}
-      theme={theme}
       authentication={authentication}
     >
       <DashboardLayout>
-        <Box padding={"20px"}>
-          <Outlet />
-        </Box>
+        <ThemeProvider theme={theme}>
+          <Box padding={"20px"}>
+            <Outlet />
+          </Box>
+        </ThemeProvider>
       </DashboardLayout>
     </AppProvider>
   )

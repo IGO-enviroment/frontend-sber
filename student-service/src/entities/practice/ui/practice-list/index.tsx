@@ -6,13 +6,14 @@ import { Theme } from "@mui/material/styles"
 interface Props {
   sx?: SxProps<Theme>
   practices: Practice[]
+  showStatus?: boolean
 }
 
-export function PracticeList({ practices, sx }: Props) {
+export function PracticeList({ practices, sx, showStatus }: Props) {
   return (
     <Stack sx={{ gap: 5, ...sx }}>
-      {practices.map((props) => (
-        <PracticeCard {...props} />
+      {practices.map((practice) => (
+        <PracticeCard practice={practice} showStatus={showStatus} />
       ))}
     </Stack>
   )

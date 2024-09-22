@@ -6,32 +6,31 @@ import { AppRoutes } from "../../../../app/config/route/config.tsx"
 import { statuses } from "../../const.ts"
 
 export const PracticeCard = ({
-  id,
-  title,
-  description,
-  competencies,
-  aprove_requests_count,
-  limit,
-  rating,
-  views,
-  status,
-}: Practice) => {
+  practice,
+  showStatus,
+}: {
+  practice: Practice
+  showStatus?: boolean
+}) => {
   return (
-    <Link href={`/${AppRoutes.PRACTICES}/${id}`}>
+    <Link href={`/${AppRoutes.PRACTICES}/${practice?.id}`}>
       <Paper
+        elevation={2}
         sx={{ padding: "15px 25px", borderRadius: 5, position: "relative" }}
       >
-        <Chip
-          label={statuses[status].label}
-          color={statuses[status].color}
-          sx={{ position: "absolute", right: 15 }}
-        />
+        {showStatus && (
+          <Chip
+            label={statuses[practice?.status].label}
+            color={statuses[practice?.status].color}
+            sx={{ position: "absolute", right: 15 }}
+          />
+        )}
         <Stack sx={{ gap: 1 }}>
-          <Typography variant={"h4"}>{title}</Typography>
-          <Typography variant={"h6"}>{description}</Typography>
+          <Typography variant={"h5"}>{practice?.title}</Typography>
+          <Typography variant={"subtitle1"}>{practice?.description}</Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            {competencies.map((comp) => (
-              <Chip label={comp} />
+            {practice?.competencies.map((comp) => (
+              <Chip size={"small"} label={comp} />
             ))}
           </Box>
           <Box
@@ -41,8 +40,9 @@ export const PracticeCard = ({
               justifyContent: "space-between",
             }}
           >
-            <Typography>
-              Количество свободных мест: {`${aprove_requests_count}/${limit}`}
+            <Typography variant={"subtitle2"}>
+              Количество свободных мест:{" "}
+              {`${practice?.aprove_requests_count}/${practice?.limit}`}
             </Typography>
             <Box
               sx={{
@@ -52,16 +52,19 @@ export const PracticeCard = ({
                 gap: 1,
               }}
             >
-              <Typography>Рейтинг компании 0/{rating}</Typography>
-              <Box
+              <Typography variant={"subtitle2"}>
+                Рейтинг организации 0/{practice?.rating}
+              </Typography>
+              <Typography
+                variant={"subtitle2"}
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                 }}
               >
-                <RemoveRedEyeRoundedIcon /> {views}
-              </Box>
+                <RemoveRedEyeRoundedIcon /> {practice?.views}
+              </Typography>
             </Box>
           </Box>
         </Stack>
