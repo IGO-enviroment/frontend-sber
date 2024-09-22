@@ -1,6 +1,8 @@
 import { Box, Rating, Stack, Typography } from "@mui/material"
+import { useGetOrganizationQuery } from "../../entities/organization/model"
 
 export const Organization = () => {
+  const { data } = useGetOrganizationQuery(undefined)
   return (
     <Stack>
       <Stack sx={{ gap: 3 }}>

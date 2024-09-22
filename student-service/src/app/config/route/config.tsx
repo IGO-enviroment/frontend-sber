@@ -44,10 +44,6 @@ export const Config = createBrowserRouter([
     ),
     children: [
       {
-        path: RoutePaths.main,
-        element: <div>main</div>,
-      },
-      {
         path: RoutePaths.profile,
         children: [
           {
@@ -61,7 +57,7 @@ export const Config = createBrowserRouter([
         ],
       },
       {
-        path: RoutePaths.practices,
+        path: RoutePaths.main,
         element: <Practices />,
       },
       {
@@ -77,9 +73,5 @@ export const Config = createBrowserRouter([
   {
     path: RoutePaths.login,
     element: <LoginPage />,
-  },
-  {
-    path: RoutePaths.overview,
-    element: <div>overview page</div>,
   },
 ])
