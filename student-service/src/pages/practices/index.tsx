@@ -1,9 +1,8 @@
 import { Box, TextField } from "@mui/material"
-import { practices } from "../../entities/practice/const.ts"
 import { Controller, useForm } from "react-hook-form"
 import { PracticeList } from "../../entities/practice/ui/practice-list"
 import { useGetPracticesQuery } from "../../entities/practice/model/get-practices.ts"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 
 export function Practices() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -14,11 +13,7 @@ export function Practices() {
     },
   })
 
-  const {
-    data = [],
-    isLoading,
-    isError,
-  } = useGetPracticesQuery({
+  const { data = [] } = useGetPracticesQuery({
     title: watch("title"),
   })
 
@@ -49,7 +44,7 @@ export function Practices() {
           )}
         />
       </Box>
-      <PracticeList practices={practices} />
+      <PracticeList practices={data} />
     </Box>
   )
 }

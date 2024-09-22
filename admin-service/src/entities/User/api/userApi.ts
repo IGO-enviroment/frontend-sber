@@ -8,12 +8,12 @@ const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getUser: build.query<User, undefined>({
             query: () => ({
-                url: '/auth',
+                url: '/users/0',
             }),
         }),
         getTokenByEmail: build.mutation<Token, Login>({
             query: (initialValues) => ({
-                url: '/auth/login',
+                url: '/users',
                 method: 'POST',
                 body: {...initialValues},
             }),

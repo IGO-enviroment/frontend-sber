@@ -8,7 +8,7 @@ export function App() {
   const userFetched = useSelector(UserFeature.selectors.wasFetched)
 
   if (!userFetched) {
-    return null //todo loading
+    return null
   }
 
   return <RouterProvider router={RouterConfig} />

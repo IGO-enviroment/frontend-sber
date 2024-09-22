@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+
 export const baseURL = "https://vitrina-urfu.ru/v1"
 
 export const baseApi = createApi({
@@ -13,9 +14,8 @@ export const baseApi = createApi({
 
 export const API = axios.create({
   baseURL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    Origin: "http://localhost:5173/",
   },
 })

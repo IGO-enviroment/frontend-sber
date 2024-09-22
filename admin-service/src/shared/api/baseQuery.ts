@@ -8,8 +8,9 @@ export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
         prepareHeaders: async (headers) => {
             headers.set("ngrok-skip-browser-warning", "true");
             const token = await UserSecretStorageService.get();
+            console.log(token)
             if (token != null) {
-                headers.set('Authorization', `Bearer ${token.token}`);
+                headers.set('Authorization', `Bearer ${token.access_token}`);
             }
             return headers;
         },

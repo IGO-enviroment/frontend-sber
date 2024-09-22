@@ -39,6 +39,7 @@ export const Config: AppRoutesProps[] = [
     path: RoutePaths['university-acceptance'],
     element: <UniversityAcceptancePage />,
     hasLayout: true,
+    roles: [''],
   },
   {
     path: RoutePaths['organization-creation'],
