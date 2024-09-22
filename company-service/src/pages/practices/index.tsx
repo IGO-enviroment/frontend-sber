@@ -24,7 +24,7 @@ export const Practices = () => {
 
   return (
     <>
-      <Container maxWidth={'xl'}>
+      <Container maxWidth={'xl'} sx={{p: '32px'}}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '30px', alignItems: 'center' }}>
           <h1>Список практик</h1>
           <Button onClick={openDrawer}>Добавить практику</Button>

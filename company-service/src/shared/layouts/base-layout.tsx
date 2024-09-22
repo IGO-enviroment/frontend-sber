@@ -2,36 +2,31 @@ import { AppProvider, DashboardLayout, Navigation, Router, Session } from '@tool
 import { FC, useMemo, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { theme } from '../mui';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import {  ThemeProvider } from '@mui/material';
 
 
 const NAVIGATION: Navigation = [
   {
     segment: 'practices',
-    title: 'practices',
-    //   icon: <DashboardIcon />,
+    title: 'Список практик',
   },
   {
     segment: 'profile',
-    title: 'profile',
+    title: 'Профиль',
   },
 ];
 
 export const BaseLayout: FC = () => {
-  const pathname = useLocation();
+  const {pathname} = useLocation();
   const navigate = useNavigate();
 
   const [session, setSession] = useState<Session | null>({
     user: {
       name: 'Bharat Kashyap',
       email: 'bharatkashyap@outlook.com',
-      image: 'https://avatars.githubusercontent.com/u/19550456',
     },
   });
 
-  //   const [, setPathname] = useState('/dashboard');
-
-  //@ts-ignore
   const router = useMemo<Router>(() => {
     return {
       pathname,
