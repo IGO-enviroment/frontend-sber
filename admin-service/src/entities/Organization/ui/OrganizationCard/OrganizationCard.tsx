@@ -1,17 +1,17 @@
 import { AlertDialog } from '@/shared/ui/AlertDialog/AlertDialog';
 import { Card, CardActions, CardContent, Typography } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import { Application } from '../../model/types/application';
+import { University } from '../../model/types/organization';
 import { LoadingButton } from '@mui/lab';
-import { changeApplicationStatus } from '../../api/applicationApi';
+import { changeOrganizationStatus } from '../../api/organizationApi';
 import { toast } from 'react-toastify';
 
-type ApplicationCardProps = {
-    application: Application,
+type OrganizationCardProps = {
+    application: University,
 }
 
-export const ApplicationCard = ({application}: ApplicationCardProps) => {
-    const [changeStatus, {isLoading, isError}] = changeApplicationStatus();
+export const UniversityCard = ({application}: OrganizationCardProps) => {
+    const [changeStatus, {isLoading, isError}] = changeOrganizationStatus();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -42,21 +42,24 @@ export const ApplicationCard = ({application}: ApplicationCardProps) => {
         <Card variant='outlined'>
             <CardContent>
             <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                {application.title}
+                Название: {application.name ?? 'ничего нет'}
             </Typography>
             <Typography variant="h5" component="div">
-                {application.description}
+                ИНН: {application.inn ?? 'ничего нет'}
             </Typography>
-            <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>Компетенции</Typography>
+            <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>Название организации</Typography>
             <Typography variant="body2">
-                Компетенции: {application.competencies.join(', ')}
+                Почта: {application.email ?? 'ничего нет'}
             </Typography>
             <Typography variant="body2">
-                График работы: {application.work_schedule}
+                Огрн: {application.ogrn ?? 'ничего нет'} 
+            </Typography>
+            <Typography variant="body2">
+                Телефон: {application.phone_number ?? 'ничего нет'}
             </Typography>
             </CardContent>
             <CardActions>
-               <LoadingButton loading={isLoading} size="small" onClick={onApproveSubmit} color='success'>Утвердить</LoadingButton><LoadingButton loading={isLoading} onClick={() => setIsOpen(true)} size="small" color='error'>Отклонить</LoadingButton>
+                <LoadingButton loading={isLoading} size="small" onClick={onApproveSubmit} color='success'>Утвердить</LoadingButton><LoadingButton loading={isLoading} onClick={() => setIsOpen(true)} size="small" color='error'>Отклонить</LoadingButton>
              <AlertDialog onSubmit={onRejectSubmit} toggleDialog={setIsOpen} isOpen={isOpen} ></AlertDialog>
             </CardActions>
         </Card>
