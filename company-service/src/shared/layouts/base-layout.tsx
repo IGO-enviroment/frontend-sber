@@ -16,6 +16,11 @@ const NAVIGATION: Navigation = [
   },
 ];
 
+const Brand = {
+  title: 'IGROK',
+  logo: <></>
+}
+
 export const BaseLayout: FC = () => {
   const {pathname} = useLocation();
   const navigate = useNavigate();
@@ -46,7 +51,7 @@ export const BaseLayout: FC = () => {
     };
   }, []);
   return (
-    <AppProvider navigation={NAVIGATION} router={router} authentication={authentication} session={session}>
+    <AppProvider branding={Brand} navigation={NAVIGATION} router={router} authentication={authentication} session={session}>
       <DashboardLayout>
          <ThemeProvider theme={theme} >
         <Outlet />
