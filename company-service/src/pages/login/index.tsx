@@ -17,12 +17,12 @@ export const LoginPage = () => {
 };
 
 
-import React, { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import CircularProgress from "@mui/material/CircularProgress";
 import { setCookie } from '../../shared/cookies/set';
 import { AnyObjectType } from '../../shared/types';
 import Axios, { AxiosRequestConfig } from 'axios';
@@ -30,7 +30,7 @@ import { getCookie } from '../../shared/cookies/get';
 
 
 
-const  BASE_APP_PATH  = "http://vitrina-urfu.ru/v1";
+const  BASE_APP_PATH  = "https://vitrina-urfu.ru";
 
 export const AXIOS_INSTANCE = Axios.create({ baseURL: BASE_APP_PATH });
 
@@ -75,7 +75,7 @@ export const UserStoreProvider: FC<{ children: ReactNode }> = ({ children }) => 
 };
 
 const fetchUser = async () => {
-   const res = await AXIOS_INSTANCE.get("/auth/login/w", {
+   const res = await AXIOS_INSTANCE.get("/v1/profile", {
       headers: {
          "ngrok-skip-browser-warning": "true",
       },
@@ -105,11 +105,10 @@ const login = async ({ email, password }: { email: string; password: string }) =
    console.log(name, value, { expires });
    setCookie(name, value, { expires });
 };
-
 export const AuthGuard: FC<{ children: ReactNode }> = ({ children }) => {
- 
 
-   return <>{children}</>;
+
+  return <>{children}</>;
 };
 
 interface ILoginFormProps {
