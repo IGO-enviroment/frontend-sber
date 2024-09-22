@@ -13,9 +13,9 @@ export const baseApi = createApi({
 
 export const API = axios.create({
   baseURL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    Origin: "http://localhost:5173/",
+    // Origin: "http://localhost:5173",
   },
 })

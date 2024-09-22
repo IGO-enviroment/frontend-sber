@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Button, TextField, Typography } from "@mui/material"
 import { Controller, useForm } from "react-hook-form"
 import { LoginFeature } from "../../../feature/auth-by-email"
 import { useSelector } from "react-redux"
