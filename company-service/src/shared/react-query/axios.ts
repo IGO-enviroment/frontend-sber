@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 
-const  BASE_APP_PATH  = "";
+const  BASE_APP_PATH  = "https://2f89-193-0-185-147.ngrok-free.app/v2";
 
 export const AXIOS_INSTANCE = Axios.create({ baseURL: BASE_APP_PATH });
 

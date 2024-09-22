@@ -13,9 +13,9 @@ import { SnackbarProvider } from 'notistack';
 const queryClient = new QueryClient();
 
 export const App = () => {
-  const worker = setupWorker(...getMocks());
+  // const worker = setupWorker(...getMocks());
 
-  worker.start();
+  // worker.start();
 
   return (
     <QueryClientProvider client={queryClient}>
