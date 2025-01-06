@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Box, Button, GlobalStyles, TextField, Typography } from "@mui/material"
 import { Controller, useForm } from "react-hook-form"
 import { LoginFeature } from "../../../feature/auth-by-email"
 import { useSelector } from "react-redux"
@@ -6,6 +6,8 @@ import { useDispatch } from "../../../shared/lib/redux"
 import { UserFeature } from "../../../entities/user"
 import { Navigate } from "react-router-dom"
 import { RoutePaths } from "../../../app/config/route/config.tsx"
+import { styles } from "./styles.ts"
+import logo from "../../../assets/logo.svg"
 
 export function LoginPage() {
   const isLoading = useSelector(LoginFeature.selectors.isFetching)
@@ -29,46 +31,28 @@ export function LoginPage() {
   }
 
   return (
-    <Box
-      sx={{
-        minWidth: "600px",
-        position: "absolute",
-        top: "20%",
-        left: "50%",
-        transform: "translate(-50%, 20%)",
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h4">Войти</Typography>
-      <Typography
-        sx={{ textAlign: "center", maxWidth: "450px", mt: "-12px" }}
-        variant="subtitle2"
-        color={"textDisabled"}
-      >
-        Уважаемый студент! Пожалуйста, введите данные, отправленные вашим
-        учебным заведением.
+    <Box sx={styles.container}>
+      <GlobalStyles
+        styles={(theme) => ({
+          body: { background: theme.palette.secondary.main },
+        })}
+      />
+      <img alt="logo" src={logo} />
+      <Typography sx={styles.formTitle} variant="h4">
+        Авторизация
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "stretch",
-          gap: 2,
-          width: 1,
-        }}
-      >
+      <Box sx={styles.form}>
         <Controller
           control={control}
-          name={"email"}
+          name="email"
           render={({ field: { value, onChange } }) => (
             <TextField
-              sx={{ flexGrow: 1, width: 1 }}
+              sx={styles.textField}
+              placeholder="Почта"
               label="Почта"
               value={value}
+              size="small"
+              slotProps={{ inputLabel: { variant: "filled" } }}
               onChange={(event) => {
                 onChange(event.target.value)
                 dispatch(LoginFeature.actions.resetError("email"))
@@ -83,10 +67,12 @@ export function LoginPage() {
           name={"password"}
           render={({ field: { value, onChange } }) => (
             <TextField
-              sx={{ flexGrow: 1, width: 1 }}
-              label="Пароль"
+              sx={styles.textField}
+              placeholder={"Пароль"}
+              label={"Пароль"}
               value={value}
               type="password"
+              size="small"
               error={Boolean(error?.password)}
               helperText={error?.password}
               onChange={(event) => {
@@ -99,11 +85,18 @@ export function LoginPage() {
         <Button
           disabled={isLoading}
           onClick={onSubmit}
-          sx={{ width: 1, mt: 2 }}
-          variant="outlined"
+          sx={styles.loginButton}
+          variant="contained"
+          size="l"
         >
           Войти
         </Button>
+        <Typography sx={styles.forgotPassword}>
+          Забыли почту или пароль?
+          <Button sx={{ fontSize: "inherit" }} variant="text">
+            Восстановить
+          </Button>
+        </Typography>
       </Box>
     </Box>
   )

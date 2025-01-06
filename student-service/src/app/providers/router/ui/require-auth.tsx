@@ -1,5 +1,4 @@
-import { useLocation, Navigate } from "react-router-dom"
-import { RoutePaths } from "../../../config/route/config.tsx"
+import { useLocation } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { UserFeature } from "../../../../entities/user"
 

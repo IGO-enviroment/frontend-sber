@@ -1,36 +1,36 @@
-import { useContext, useEffect } from 'react';
-import { LS_THEME_KEY, Theme, ThemeContext } from '@/app/providers/theme/lib/context';
+import { useContext, useEffect } from "react"
+import { LS_THEME_KEY, Theme, ThemeContext } from "./context.ts"
 
-interface UseThemeResult{
-    theme: Theme | undefined,
-    toggleTheme: () => void;
+interface UseThemeResult {
+  theme: Theme | undefined
+  toggleTheme: () => void
 }
 
 export const useTheme = (): UseThemeResult => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext)
 
   useEffect(() => {
-    if (theme) document.body.className = theme;
-  }, [theme]);
+    if (theme) document.body.className = theme
+  }, [theme])
 
   const toggleTheme = () => {
-    let newTheme;
+    let newTheme
     switch (theme) {
       case Theme.DARK:
-        newTheme = Theme.LIGHT;
-        break;
+        newTheme = Theme.LIGHT
+        break
       case Theme.LIGHT:
-        newTheme = Theme.PURPLE;
-        break;
+        newTheme = Theme.PURPLE
+        break
       case Theme.PURPLE:
-        newTheme = Theme.DARK;
-        break;
+        newTheme = Theme.DARK
+        break
       default:
-        newTheme = Theme.LIGHT;
+        newTheme = Theme.LIGHT
     }
-    localStorage.setItem(LS_THEME_KEY, newTheme);
-    setTheme?.(newTheme);
-  };
+    localStorage.setItem(LS_THEME_KEY, newTheme)
+    setTheme?.(newTheme)
+  }
 
-  return { theme, toggleTheme };
-};
+  return { theme, toggleTheme }
+}
