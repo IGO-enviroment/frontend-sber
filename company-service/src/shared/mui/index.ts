@@ -8,5 +8,10 @@ export const theme = createTheme({
     typography,
     palette,
     shape,
-    components
+    components,
+    colorSchemes: {
+        light: {
+            palette
+        }
+    }
 });

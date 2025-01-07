@@ -14,6 +14,10 @@ const NAVIGATION: Navigation = [
     segment: 'profile',
     title: 'Профиль',
   },
+  {
+    segment: 'ui',
+    title: 'ui'
+  }
 ];
 
 const Brand = {
