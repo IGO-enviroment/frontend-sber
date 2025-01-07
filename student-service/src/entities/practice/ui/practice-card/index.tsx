@@ -2,8 +2,8 @@ import { Practice } from "../../types.ts"
 import { Box, Chip, Paper, Stack, Typography } from "@mui/material"
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded"
 import { Link } from "@mui/material"
-import { AppRoutes } from "../../../../app/config/route/config.tsx"
 import { statuses } from "../../const.ts"
+import { AppRoutes } from "../../../../app/config/route/paths"
 
 export const PracticeCard = ({
   practice,

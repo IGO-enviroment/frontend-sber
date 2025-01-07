@@ -1,1 +1,2 @@
-export { Config as RouterConfig } from './config';
+export { Config as RouterConfig } from "./config"
+export { RoutePaths } from "./paths"

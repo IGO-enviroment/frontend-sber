@@ -5,9 +5,9 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "../../../shared/lib/redux"
 import { UserFeature } from "../../../entities/user"
 import { Navigate } from "react-router-dom"
-import { RoutePaths } from "../../../app/config/route/config.tsx"
 import { styles } from "./styles.ts"
 import logo from "../../../assets/logo.svg"
+import { RoutePaths } from "../../../app/config/route"
 
 export function LoginPage() {
   const isLoading = useSelector(LoginFeature.selectors.isFetching)

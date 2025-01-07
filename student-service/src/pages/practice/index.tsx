@@ -1,12 +1,12 @@
 import { Box, Button, Chip, Paper, Stack, Typography } from "@mui/material"
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded"
-import { AppRoutes } from "../../app/config/route/config.tsx"
 import { Link } from "@mui/material"
 import {
   useGetPracticeQuery,
   useSendApplicationMutation,
 } from "../../entities/practice/model/get-practices.ts"
 import { useParams } from "react-router-dom"
+import { AppRoutes } from "../../app/config/route/paths.ts"
 
 export const Practice = () => {
   const params = useParams()

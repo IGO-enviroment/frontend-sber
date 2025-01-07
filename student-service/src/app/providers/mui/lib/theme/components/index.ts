@@ -10,30 +10,72 @@ declare module "@mui/material/Button" {
   }
 }
 
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    ghost: true
+  }
+}
+
 export const Components: CssVarsThemeOptions["components"] = {
   MuiCssBaseline,
   MuiTextField: {
     styleOverrides: {
-      root: {},
+      root: {
+        width: "100%",
+      },
     },
   },
   MuiOutlinedInput: {
     styleOverrides: {
-      root: {
-        fontSize: "16px",
-        fontWeight: 700,
-        lineHeight: "20.8px",
-        borderRadius: "12px",
-        padding: `16px`,
-        ">*": {
+      root: ({ ownerState, theme }) => {
+        return {
+          fontSize: "16px",
+          fontWeight: 700,
+          lineHeight: "20.8px",
+          borderRadius: "12px",
+          padding: ownerState.value ? "8.5px 16px" : `16px`,
+          alignItems: "flex-end",
           legend: {
             display: "none",
           },
-        },
+          "label ~ &.Mui-focused": {
+            padding: "8.5px 16px",
+          },
+          fieldset: {
+            top: "0px",
+          },
+          label: {
+            left: "2px",
+          },
+          "&.Mui-focused": {
+            padding: "16px",
+          },
+          "& ::placeholder": {
+            color: theme.palette.grey[600],
+            opacity: 1,
+          },
+          variants: [
+            {
+              props: {
+                disabled: true,
+              },
+              style: ({ theme }) => ({
+                backgroundColor: theme.palette.grey[200],
+              }),
+            },
+          ],
+        }
       },
       input: {
         padding: "0px",
       },
+    },
+  },
+  MuiInput: {
+    styleOverrides: {
+      disabled: (props) => ({
+        backgroundColor: props.theme.palette.grey[200],
+      }),
     },
   },
   MuiInputBase: {
@@ -42,9 +84,9 @@ export const Components: CssVarsThemeOptions["components"] = {
         height: "52px",
         borderRadius: "12px",
         padding: "0px",
+        alignItems: "flex-end",
       },
       input: (props) => ({
-        borderRadius: "12px",
         paddingTop: "0px",
         paddingBottom: "0px",
         "::placeholder": {
@@ -52,6 +94,7 @@ export const Components: CssVarsThemeOptions["components"] = {
           fontSize: "16px",
           fontWeight: 700,
           lineHeight: "21px",
+          opacity: 1,
         },
       }),
     },
@@ -67,17 +110,27 @@ export const Components: CssVarsThemeOptions["components"] = {
     ],
   },
   MuiInputLabel: {
+    styleOverrides: {
+      root: {
+        variants: [
+          {
+            props: {
+              variant: "filled",
+            },
+            style: ({ theme }) => ({
+              left: "2px",
+              fontSize: "16px",
+              fontWeight: 700,
+              lineHeight: "20.8px",
+              color: theme.palette.grey[600],
+            }),
+          },
+        ],
+      },
+    },
     defaultProps: {
       variant: "filled",
     },
-  },
-  MuiInput: {
-    styleOverrides: {
-      root: {
-        padding: 0,
-      },
-    },
-    defaultProps: {},
   },
   MuiButton: {
     styleOverrides: {
@@ -88,6 +141,18 @@ export const Components: CssVarsThemeOptions["components"] = {
         lineHeight: "21.6px",
         textTransform: "none",
         boxShadow: "none",
+        "&:hover": {
+          boxShadow: "none",
+        },
+      },
+      containedSecondary: (props) => ({
+        color: props.theme.palette.primary.main,
+      }),
+      startIcon: {
+        justifyContent: "space-between",
+      },
+      endIcon: {
+        justifyContent: "space-between",
       },
     },
     variants: [
@@ -131,6 +196,14 @@ export const Components: CssVarsThemeOptions["components"] = {
           fontWeight: 700,
           lineHeight: "14.4px",
         },
+      },
+      {
+        props: {
+          color: "ghost",
+        },
+        style: ({ theme }) => ({
+          background: theme.palette.grey[300],
+        }),
       },
     ],
     defaultProps: {
