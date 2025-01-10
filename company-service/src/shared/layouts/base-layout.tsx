@@ -2,8 +2,9 @@ import { AppProvider, DashboardLayout, Navigation, Router, Session } from '@tool
 import { FC, useMemo, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { theme } from '../mui';
-import {  ThemeProvider } from '@mui/material';
-
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { Header } from './header';
+import { AppWrapper } from './app-wrapper';
 
 const NAVIGATION: Navigation = [
   {
@@ -16,17 +17,17 @@ const NAVIGATION: Navigation = [
   },
   {
     segment: 'ui',
-    title: 'ui'
-  }
+    title: 'ui',
+  },
 ];
 
 const Brand = {
   title: 'IGROK',
-  logo: <></>
-}
+  logo: <></>,
+};
 
 export const BaseLayout: FC = () => {
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [session, setSession] = useState<Session | null>({
@@ -47,20 +48,25 @@ export const BaseLayout: FC = () => {
   const authentication = useMemo(() => {
     return {
       signIn: () => {
-        navigate('login')
+        navigate('login');
       },
       signOut: () => {
-        setSession(null)
+        setSession(null);
       },
     };
   }, []);
+
   return (
-    <AppProvider branding={Brand} navigation={NAVIGATION} router={router} authentication={authentication} session={session}>
-      <DashboardLayout>
-         <ThemeProvider theme={theme} >
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: ({palette}) => palette.grey[200]}}>
+      <Header />
+      <AppWrapper>
         <Outlet />
-        </ThemeProvider>
-      </DashboardLayout>
-    </AppProvider>
+      </AppWrapper>
+      </Box>
+      
+    </ThemeProvider>
   );
+
 };
