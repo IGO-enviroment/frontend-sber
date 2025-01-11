@@ -7,11 +7,11 @@ import { FC, ReactNode, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const NAVIGATION: Navigation = [
-  {
-    segment: RoutePaths['student-invatation'],
-    title: 'Пригласить студентов',
-    icon: <AccessibilityIcon></AccessibilityIcon>
-  },
+  // {
+  //   segment: RoutePaths['student-invatation'],
+  //   title: 'Пригласить студентов',
+  //   icon: <AccessibilityIcon></AccessibilityIcon>
+  // },
   {
     segment: RoutePaths['university-acceptance'],
     title: 'Одобрить практики',

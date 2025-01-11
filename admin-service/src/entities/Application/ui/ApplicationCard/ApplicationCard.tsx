@@ -8,9 +8,10 @@ import { toast } from 'react-toastify';
 
 type ApplicationCardProps = {
     application: Application,
+    setState: any
 }
 
-export const ApplicationCard = ({application}: ApplicationCardProps) => {
+export const ApplicationCard = ({application, setState}: ApplicationCardProps) => {
     const [changeStatus, {isLoading, isError}] = changeApplicationStatus();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,9 @@ export const ApplicationCard = ({application}: ApplicationCardProps) => {
 
     useEffect(() => {
         if (isError) {
-            toast.error('Что-то пошло не так')
+            setState(prev => prev.filter(item => item.id !== application.id))
+            // toast.success('Практика одобрена')
+            // toast.error('Что-то пошло не так')
         }
         
     }, [isError])
