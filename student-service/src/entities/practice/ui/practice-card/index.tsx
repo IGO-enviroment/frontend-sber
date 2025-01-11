@@ -37,7 +37,7 @@ export const PracticeCard = ({
           </Stack>
           <Stack justifyContent="space-between" direction="row">
             <Stack direction="row" spacing="12px" alignItems="center">
-              <Avatar variant="photo-s" />
+              <Avatar src={company?.logo} variant="photo-s" />
               <Typography children={company?.name} variant="m-bold" />
             </Stack>
             <Button

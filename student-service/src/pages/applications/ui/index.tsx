@@ -2,30 +2,11 @@ import { Button, Stack } from "@mui/material"
 import { useGetPracticesQuery } from "../../../entities/practice/model/get-practices.ts"
 import { Section } from "../../../shared/ui/section"
 import { PracticeList } from "../../../entities/practice/ui/practice-list"
+import { PRACTICES_LIST } from "../../../shared/const"
 
 export function Applications() {
-  const {
-    data = [
-      {
-        id: "1",
-        title: "Практикант Frontend-разработчик",
-        competencies: ["React", "Vue"],
-        organization: {
-          name: "Вконтакте",
-          logo: "",
-        },
-      },
-      {
-        id: "2",
-        title: "Практикант Frontend-разработчик",
-        competencies: ["React", "Vue"],
-        organization: {
-          name: "Вконтакте",
-          logo: "",
-        },
-      },
-    ],
-  } = useGetPracticesQuery({})
+  const { data = PRACTICES_LIST.filter(({ isSent }) => isSent) } =
+    useGetPracticesQuery({})
 
   return (
     <Stack spacing="12px">

@@ -7,6 +7,7 @@ import { useGetPracticesQuery } from "@/entities/practice/model/get-practices"
 import { PracticeList } from "@/entities/practice/ui/practice-list"
 import { useState } from "react"
 import { FiltersModal } from "./filters"
+import { PRACTICES_LIST } from "../../../shared/const"
 
 export function Practices() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -18,28 +19,7 @@ export function Practices() {
     },
   })
 
-  const {
-    data = [
-      {
-        id: "1",
-        title: "Практикант Frontend-разработчик",
-        competencies: ["React", "Vue"],
-        organization: {
-          name: "Вконтакте",
-          logo: "",
-        },
-      },
-      {
-        id: "2",
-        title: "Практикант Frontend-разработчик",
-        competencies: ["React", "Vue"],
-        organization: {
-          name: "Вконтакте",
-          logo: "",
-        },
-      },
-    ],
-  } = useGetPracticesQuery({
+  const { data = PRACTICES_LIST } = useGetPracticesQuery({
     title: watch("title"),
   })
 

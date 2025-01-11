@@ -18,7 +18,7 @@ const tabs = [
     icon: AttachFileOutlinedIcon,
   },
   {
-    path: RoutePaths.practices,
+    path: RoutePaths.main,
     text: "Все практики",
     icon: GroupsOutlinedIcon,
   },

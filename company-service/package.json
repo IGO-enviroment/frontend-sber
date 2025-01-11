@@ -1,9 +1,9 @@
 {
-  "name": "frontend-sber",
+  "fullName": "frontend-sber",
   "private": true,
   "version": "0.0.1",
   "author": {
-    "name": "Gribanov Danil"
+    "fullName": "Gribanov Danil"
   },
   "type": "module",
   "scripts": {

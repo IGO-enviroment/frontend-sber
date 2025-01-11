@@ -13,8 +13,8 @@ export enum AppRoutes {
 }
 
 export const RoutePaths: Record<AppRoutes, string> = {
-  [AppRoutes.MAIN]: "",
-  [AppRoutes.ABOUT]: "about",
+  [AppRoutes.MAIN]: "/",
+  [AppRoutes.ABOUT]: "/about",
   [AppRoutes.PROFILE]: "/profile",
   [AppRoutes.PROFILE_EDIT]: "/profile/edit",
   [AppRoutes.NOT_FOUND]: "*",
@@ -22,6 +22,6 @@ export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.OVERVIEW]: "/overview",
   [AppRoutes.PRACTICES]: "/practices",
   [AppRoutes.ORGANIZATION]: "/organization",
-  [AppRoutes.PERSONAL]: "personal",
+  [AppRoutes.PERSONAL]: "/personal",
   [AppRoutes.APPLICATIONS]: "/applications",
 }

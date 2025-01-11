@@ -1,56 +1,29 @@
 import { Avatar, Box, Button, Rating, Stack, Typography } from "@mui/material"
 import { useGetOrganizationQuery } from "../../entities/organization/model"
 import { Section } from "../../shared/ui/section"
-import { Stars } from "@mui/icons-material"
+import { ORGANIZATION_DATA } from "../../shared/const"
 
 export const Organization = () => {
   const { data } = useGetOrganizationQuery(undefined)
-  const DATA = {
-    name: "ООО ДОМА",
-    description:
-      "Дома — продуктовая IT-компания. Мы диджитализируем ЖКХ, выводим управление домами на новый уровень. Высокое качество ЖКХ-услуг и довольные жители многоквартирных домов — цель, которая нас вдохновляет.",
-    address: "Екатеринбург, ул. Розы Люксембург, 43",
-    contacts: [
-      {
-        name: "Овечкин Дмитрий Сергеевич",
-        description: "Hr-менеджер",
-        email: "hr-email@gmail.com",
-        phone: "+ 7 (900) 800-70-60",
-      },
-    ],
-    reviews: [
-      {
-        name: "Иван Т.",
-        stars: 5,
-        comment:
-          "Молодая компания, управляют которой профессионалы.    Плюсы: располагается в центре города, возможность работать удаленно с гибридным началом дня. Современная техника и оборудование. Потрясающий коллектив, с которым невероятно комфортно взаимодействовать и решать задачи.",
-      },
-      {
-        name: "Данил М. ",
-        stars: 5,
-        comment:
-          "Молодая компания, управляют которой профессионалы.    Плюсы: располагается в центре города, возможность работать удаленно с гибридным началом дня. Современная техника и оборудование. Потрясающий коллектив, с которым невероятно комфортно взаимодействовать и решать задачи.",
-      },
-    ],
-  }
+
   return (
     <Stack spacing="16px">
       <Section>
         <Stack direction="row" spacing="12px">
-          <Avatar variant="photo-xl" />
+          <Avatar src={ORGANIZATION_DATA.logo} variant="photo-xl" />
           <Stack>
             <Typography variant="xl-bold" mb="12px">
-              {DATA.name}
+              {ORGANIZATION_DATA.name}
             </Typography>
-            <Typography variant="l">{DATA.description}</Typography>
+            <Typography variant="l">{ORGANIZATION_DATA.description}</Typography>
           </Stack>
         </Stack>
       </Section>
       <Section title="Адрес">
-        <Section.Item title={DATA.address} />
+        <Section.Item title={ORGANIZATION_DATA.address} />
       </Section>
       <Section title="Контакты">
-        {DATA.contacts.map((item) => (
+        {ORGANIZATION_DATA.contacts.map((item) => (
           <Section.Item title={item.name} description={item.description}>
             <Stack direction="row" spacing="12px">
               <Button
@@ -70,7 +43,7 @@ export const Organization = () => {
         ))}
       </Section>
       <Section title="Отзывы">
-        {DATA.reviews.map((item) => (
+        {ORGANIZATION_DATA.reviews.map((item) => (
           <Box>
             <Stack
               direction="row"

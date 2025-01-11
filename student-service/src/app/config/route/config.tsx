@@ -12,7 +12,6 @@ import { ProfilePage } from "../../../pages/profile/ui"
 
 export const Config = createBrowserRouter([
   {
-    path: "",
     element: (
       <RequireAuth>
         <BaseLayout />

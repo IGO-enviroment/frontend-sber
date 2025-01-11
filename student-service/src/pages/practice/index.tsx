@@ -1,76 +1,82 @@
-import { Avatar, Button, Chip, Link, Stack, Typography } from "@mui/material"
-import { useParams } from "react-router-dom"
+import {
+  Alert,
+  Avatar,
+  Button,
+  Chip,
+  Link,
+  Snackbar,
+  SnackbarCloseReason,
+  Stack,
+  Typography,
+} from "@mui/material"
 import { Section } from "../../shared/ui/section"
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined"
 import { AppRoutes } from "../../app/config/route/paths"
+import { PRACTICE_DATA } from "../../shared/const"
+import { SyntheticEvent, useState } from "react"
+import CheckIcon from "@mui/icons-material/Check"
 
 export const Practice = () => {
-  const data = {
-    title: "Практикант Fullstack",
-    available: 10,
-    left: 3,
-    requirementsDescription:
-      "— Проектировать API и работать с GraphQL;\n" +
-      "— Участвовать в разработке веб-приложения на NextJs / React;\n" +
-      "— Работать в моно-репозиториях с сабмодулями;\n" +
-      "— Работать с SQL / NoSQL базами (Postgres, Redis);\n" +
-      "— Писать аккуратный, читаемый и поддерживаемый код;\n" +
-      "— Проходить и проводить code-review, архитектурное review.",
-    directions: ["Информационные технологии, системная интеграция, интернет"],
-    competencies: ["GraphQL", "NextJs", "React", "SQL / NoSQL", "Сode-review"],
-    company: {
-      id: 1,
-      logo: "",
-      name: "ООО ДОМА",
-    },
-    format: "Офис",
-    address: "г. Екатеринбург, ул. Розы Люксембург, 43",
-    schedule: {
-      title: "По договоренности",
-      description: "Преимущественно первая половина дня, пн-пт",
-    },
-    contacts: [
-      {
-        name: "Овечкин Дмитрий Сергеевич",
-        description: "Руководитель практики",
-        phone: "+ 7 (900) 800-70-60",
-        email: "hello@gmail.com",
-      },
-    ],
+  const [isApplicationSent, setIsApplicationSent] = useState<boolean>(false)
+
+  const [open, setOpen] = useState(false)
+
+  const handleClick = () => {
+    setOpen(true)
+  }
+
+  const handleClose = (
+    event?: SyntheticEvent | Event,
+    reason?: SnackbarCloseReason,
+  ) => {
+    if (reason === "clickaway") {
+      return
+    }
+
+    setOpen(false)
   }
 
   return (
     <Stack spacing="12px">
       <Section>
         <Stack direction="row" justifyContent="space-between" mb="5px">
-          <Typography variant="xl-bold">{data.title}</Typography>
-          <Button size="m" color="primary" variant="contained">
-            Отправить заявку
+          <Typography variant="xl-bold">{PRACTICE_DATA.title}</Typography>
+          <Button
+            size="m"
+            color={isApplicationSent ? "primary" : "secondary"}
+            disabled={isApplicationSent}
+            variant="contained"
+            onClick={() => {
+              setIsApplicationSent(true)
+              handleClick()
+            }}
+          >
+            {isApplicationSent ? "Заявка отправлена" : "Отправить заявку"}
           </Button>
         </Stack>
         <Section.Item>
           <Typography variant="m-bold" component="span">
-            {data.available} мест /{" "}
+            {PRACTICE_DATA.available} мест /{" "}
           </Typography>
           <Typography variant="m-bold" component="span" color="error">
-            {data.left} осталось
+            {PRACTICE_DATA.left} осталось
           </Typography>
         </Section.Item>
         <Section.Item
           title="Требования"
-          description={data.requirementsDescription}
+          description={PRACTICE_DATA.requirementsDescription}
           sx={{ whiteSpace: "pre" }}
         ></Section.Item>
         <Section.Item title="Направление">
           <Stack spacing="8px" direction="row">
-            {data.directions.map((direction, i) => (
+            {PRACTICE_DATA.directions.map((direction, i) => (
               <Chip label={direction} size="s" key={i} />
             ))}
           </Stack>
         </Section.Item>
         <Section.Item title="Навыки">
           <Stack spacing="8px" direction="row">
-            {data.competencies.map((comp, i) => (
+            {PRACTICE_DATA.competencies.map((comp, i) => (
               <Chip label={comp} size="s" key={i} />
             ))}
           </Stack>
@@ -79,14 +85,14 @@ export const Practice = () => {
       <Section>
         <Link
           boxShadow="none"
-          href={`/${AppRoutes.ORGANIZATION}/${data.company.id}`}
+          href={`/${AppRoutes.ORGANIZATION}/${PRACTICE_DATA.company.id}`}
           underline="none"
           color="inherit"
         >
           <Stack alignItems="center" direction="row">
-            <Avatar src={data.company.logo} variant="photo-l" />
+            <Avatar src={PRACTICE_DATA.company.logo} variant="photo-l" />
             <Typography sx={{ ml: "16px" }} variant="l-bold">
-              {data.company.name}
+              {PRACTICE_DATA.company.name}
             </Typography>
             <Button
               size="m"
@@ -105,16 +111,19 @@ export const Practice = () => {
         </Link>
       </Section>
       <Section title="Формат и место проведения">
-        <Section.Item title={data.format} description={data.address} />
+        <Section.Item
+          title={PRACTICE_DATA.format}
+          description={PRACTICE_DATA.address}
+        />
       </Section>
       <Section title="График">
         <Section.Item
-          title={data.schedule.title}
-          description={data.schedule.description}
+          title={PRACTICE_DATA.schedule.title}
+          description={PRACTICE_DATA.schedule.description}
         />
       </Section>
       <Section title="Контакты">
-        {data.contacts.map((contact, index) => (
+        {PRACTICE_DATA.contacts.map((contact, index) => (
           <Section.Item
             title={contact.name}
             description={contact.description}
@@ -131,6 +140,23 @@ export const Practice = () => {
           </Section.Item>
         ))}
       </Section>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+      >
+        <Alert
+          severity="success"
+          variant="filled"
+          sx={{ width: 1, color: (theme) => theme.palette.grey[100] }}
+          icon={<CheckIcon fontSize="inherit" />}
+        >
+          <Typography variant="l-bold" textAlign="center">
+            Заявка отправлена !
+          </Typography>
+        </Alert>
+      </Snackbar>
     </Stack>
   )
 }

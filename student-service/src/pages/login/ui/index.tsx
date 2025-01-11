@@ -4,7 +4,7 @@ import { LoginFeature } from "../../../feature/auth-by-email"
 import { useSelector } from "react-redux"
 import { useDispatch } from "../../../shared/lib/redux"
 import { UserFeature } from "../../../entities/user"
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { styles } from "./styles.ts"
 import logo from "../../../assets/logo.svg"
 import { RoutePaths } from "../../../app/config/route"
@@ -14,6 +14,7 @@ export function LoginPage() {
   const isUserLogged = useSelector(UserFeature.selectors.data)
   const error = useSelector(LoginFeature.selectors.error)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const { control, watch } = useForm({
     values: {
@@ -24,6 +25,7 @@ export function LoginPage() {
 
   const onSubmit = () => {
     dispatch(LoginFeature.thunk.loginByEmail(watch()))
+    navigate(RoutePaths.main) // @todo
   }
 
   if (isUserLogged) {

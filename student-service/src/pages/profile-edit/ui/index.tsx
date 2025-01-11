@@ -11,6 +11,7 @@ import {
 import { Section } from "@/shared/ui/section"
 import { RoutePaths } from "../../../app/config/route"
 import { useNavigate } from "react-router-dom"
+import { PROFILE_DATA } from "../../../shared/const"
 
 export function ProfileEditPage() {
   const navigate = useNavigate()
@@ -32,13 +33,19 @@ export function ProfileEditPage() {
           <Section.Item>
             <Grid2 container spacing="8px">
               <Grid2 size={6}>
-                <TextField placeholder="Имя" />
+                <TextField defaultValue={PROFILE_DATA.name} placeholder="Имя" />
               </Grid2>
               <Grid2 size={6}>
-                <TextField placeholder="Фамилия" />
+                <TextField
+                  defaultValue={PROFILE_DATA.surname}
+                  placeholder="Фамилия"
+                />
               </Grid2>
               <Grid2 size={12}>
-                <TextField placeholder="Отчество" />
+                <TextField
+                  defaultValue={PROFILE_DATA.patronymic}
+                  placeholder="Отчество"
+                />
               </Grid2>
             </Grid2>
           </Section.Item>
@@ -46,6 +53,7 @@ export function ProfileEditPage() {
             <RadioGroup row>
               <FormControlLabel
                 value="Мужской"
+                checked
                 control={<Radio />}
                 label="Мужской"
               />
@@ -62,19 +70,28 @@ export function ProfileEditPage() {
             title="О себе"
             description="Опишите опыт работы и пет-проекты"
           >
-            <TextField placeholder="Например, работал ассистентом руководителя... " />
+            <TextField
+              defaultValue={PROFILE_DATA.about}
+              placeholder="Например, работал ассистентом руководителя... "
+            />
           </Section.Item>
           <Section.Item
             title="Укажите ваше направление"
-            description="Например, Frontend"
+            description="Например, Программная инженерия"
           >
-            <TextField placeholder="Направление" />
+            <TextField
+              defaultValue={PROFILE_DATA.direction}
+              placeholder="Направление"
+            />
           </Section.Item>
           <Section.Item
             title="Навыки"
             description="Добавьте до 10 актуальных навыков"
           >
-            <TextField placeholder="Например, html" />
+            <TextField
+              defaultValue={PROFILE_DATA.skills.join(", ")}
+              placeholder="Например, html"
+            />
           </Section.Item>
         </Section>
         <Section title="Учебное заведение">
