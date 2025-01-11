@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { getUser } from '@/entities/User/model/services/getUser';
 import { getUserInited } from '@/entities/User/model/selectors/getUserIsInited/getUserIsInited';
 import AppRouter from './providers/router/ui/router';
+import { ThemeProvider } from '@mui/material';
+import { theme } from '@/shared/mui';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -16,7 +18,9 @@ function App() {
       dispatch(getUser() as any);
   }, [dispatch]);
 
-  return <>{isInited && <AppRouter />}</>;
+  console.log(theme)
+
+  return <>{isInited && <ThemeProvider theme={theme}><AppRouter /></ThemeProvider>}</>;
 }
 
 export default App

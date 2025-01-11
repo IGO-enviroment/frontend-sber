@@ -29,7 +29,7 @@ const AppRouter = () => {
 
     return (
         <Suspense fallback={<PageLoader />}>
-            <Routes>{Object.values(RouterConfig).map(renderWithWrapper)}</Routes>{' '}
+            <Routes>{Object.values(RouterConfig).map(renderWithWrapper)}</Routes>
         </Suspense>
     );
 };
