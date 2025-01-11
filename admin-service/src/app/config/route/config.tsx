@@ -11,7 +11,7 @@ import {RouteProps} from "react-router-dom";
 export type AppRoutesProps = RouteProps & {
   authOnly?: boolean;
   hasLayout?: boolean;
-  roles?: Role[];
+  roles?: Role[] | string[];
 };
 
 export enum AppRoutes {
@@ -51,12 +51,12 @@ export const Config: AppRoutesProps[] = [
     element: <UniversityApprovePage />,
     hasLayout: true,
   },
-  {
-    path: RoutePaths['student-invatation'],
-    element: <StudentInvatationPage></StudentInvatationPage>,
-    hasLayout: true
-    // authOnly: true,
-  },
+  // {
+  //   path: RoutePaths['student-invatation'],
+  //   element: <StudentInvatationPage></StudentInvatationPage>,
+  //   hasLayout: true
+  //   // authOnly: true,
+  // },
   {
     path: RoutePaths.login,
     element: <LoginPage />,

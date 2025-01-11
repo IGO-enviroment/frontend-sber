@@ -15,9 +15,9 @@ import { setCookie } from '../shared/cookies/set';
 const queryClient = new QueryClient();
 
 export const App = () => {
-  // const worker = setupWorker(...getMocks());
+  const worker = setupWorker(...getMocks());
 
-  // worker.start();
+  worker.start();
 
   setCookie('auth', 'dqwd', {expires: -1})
 

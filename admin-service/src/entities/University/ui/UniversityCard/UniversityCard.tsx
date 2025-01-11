@@ -8,9 +8,10 @@ import { toast } from 'react-toastify';
 
 type UniversityCardProps = {
     application: University,
+    setState: any
 }
 
-export const UniversityCard = ({application}: UniversityCardProps) => {
+export const UniversityCard = ({application, setState}: UniversityCardProps) => {
     const [changeStatus, {isLoading, isError}] = changeApplicationStatus();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,9 @@ export const UniversityCard = ({application}: UniversityCardProps) => {
 
     useEffect(() => {
         if (isError) {
-            toast.error('Что-то пошло не так')
+            setState(prev => prev.filter(item => item.id !== application.id))
+
+            // toast.error('Что-то пошло не так')
         }
         
     }, [isError])
