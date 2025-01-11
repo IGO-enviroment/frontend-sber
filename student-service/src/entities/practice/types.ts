@@ -11,4 +11,8 @@ export interface Practice {
   limit: number
   views: number
   rating: number
+  organization: {
+    name: string
+    logo: string
+  }
 }

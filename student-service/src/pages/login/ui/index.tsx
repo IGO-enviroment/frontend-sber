@@ -38,7 +38,7 @@ export function LoginPage() {
         })}
       />
       <img alt="logo" src={logo} />
-      <Typography sx={styles.formTitle} variant="h4">
+      <Typography variant="xl-bold" sx={styles.formTitle}>
         Авторизация
       </Typography>
       <Box sx={styles.form}>
@@ -68,7 +68,7 @@ export function LoginPage() {
           render={({ field: { value, onChange } }) => (
             <TextField
               sx={styles.textField}
-              placeholder={"Пароль"}
+              placeholder="Пароль"
               label={"Пароль"}
               value={value}
               type="password"
@@ -91,7 +91,7 @@ export function LoginPage() {
         >
           Войти
         </Button>
-        <Typography sx={styles.forgotPassword}>
+        <Typography variant="m-bold" sx={styles.forgotPassword}>
           Забыли почту или пароль?
           <Button sx={{ fontSize: "inherit" }} variant="text">
             Восстановить

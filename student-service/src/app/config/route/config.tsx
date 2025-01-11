@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom"
 import { BaseLayout } from "@/widgets/layout"
-import { ProfilePage } from "@/pages/profile"
+import { ProfileEditPage } from "@/pages/profile-edit"
 import { LoginPage } from "@/pages/login/ui"
 import { RequireAuth } from "../../providers/router/ui/require-auth.tsx"
 import { Practices } from "@/pages/practices"
@@ -8,6 +8,7 @@ import { Practice } from "@/pages/practice"
 import { Organization } from "@/pages/organization"
 import { Applications } from "@/pages/applications/ui"
 import { RoutePaths } from "./paths"
+import { ProfilePage } from "../../../pages/profile/ui"
 
 export const Config = createBrowserRouter([
   {
@@ -20,7 +21,13 @@ export const Config = createBrowserRouter([
     children: [
       {
         path: RoutePaths.profile,
-        element: <ProfilePage />,
+        children: [
+          { index: true, element: <ProfilePage /> },
+          {
+            path: RoutePaths["profile-edit"],
+            element: <ProfileEditPage />,
+          },
+        ],
       },
       {
         path: RoutePaths.main,
@@ -28,7 +35,7 @@ export const Config = createBrowserRouter([
       },
       {
         path: RoutePaths.practices,
-        element: <></>,
+        element: <Practices />,
       },
       {
         path: RoutePaths.applications,

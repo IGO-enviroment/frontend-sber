@@ -36,6 +36,7 @@ export const Navbar = () => {
         padding: "16px",
         borderRadius: "24px",
         position: "sticky",
+        flexShrink: 0,
         top: "10px",
         left: 0,
         backgroundColor: (theme) => theme.palette.grey[100],

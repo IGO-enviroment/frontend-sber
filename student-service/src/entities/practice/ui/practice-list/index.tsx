@@ -6,14 +6,21 @@ import { Theme } from "@mui/material/styles"
 interface Props {
   sx?: SxProps<Theme>
   practices: Practice[]
-  showStatus?: boolean
 }
 
-export function PracticeList({ practices, sx, showStatus }: Props) {
+export function PracticeList({ practices, sx }: Props) {
   return (
-    <Stack sx={{ gap: 5, ...sx }}>
+    <Stack sx={{ ...sx }} spacing="12px">
       {practices.map((practice) => (
-        <PracticeCard practice={practice} showStatus={showStatus} />
+        <PracticeCard
+          id={practice.id}
+          title={practice.title}
+          competencies={practice.competencies}
+          company={{
+            logo: practice.organization.logo,
+            name: practice.organization.name,
+          }}
+        />
       ))}
     </Stack>
   )

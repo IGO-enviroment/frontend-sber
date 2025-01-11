@@ -23,9 +23,6 @@ export const styles: Record<string, SxProps<Theme>> = {
     },
   },
   formTitle: {
-    fontSize: `24px`,
-    fontWeight: 700,
-    lineHeight: `28.8px`,
     textAlign: `center`,
     m: "48px 0 24px",
   },
@@ -37,9 +34,6 @@ export const styles: Record<string, SxProps<Theme>> = {
     width: 1,
   },
   forgotPassword: {
-    fontSize: "16px",
-    fontWeight: 700,
-    lineHeight: "20.8px",
     mt: "16px",
     color: (theme) => theme.palette.grey[700],
   },
