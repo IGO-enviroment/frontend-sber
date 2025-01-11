@@ -6,7 +6,6 @@ import { useGetPracticesById } from "../../shared/react-query/practices/use-get-
 export const Practice = () => {
     const {practicesID} = useParams();
     const {data, isLoading} = useGetPracticesById(practicesID)
-
     if (isLoading) return <CircularProgress />
 
    return (
@@ -15,6 +14,8 @@ export const Practice = () => {
         <Paper sx={{ padding: "30px", flexGrow: 1 }}>
           <Stack sx={{ gap: 1 }}>
             <Typography variant="h3">{data?.title}</Typography>
+
+            <Typography variant="subtitle1">{data?.description}</Typography>
             <Box
               sx={{
                 display: "flex",
@@ -29,8 +30,7 @@ export const Practice = () => {
           </Stack>
         </Paper>
       </Box>
-      <Box sx={{ fontSize: "24px", mt: 2 }}>{data?.description}</Box>
-   
+  
     </Stack>
   )
 }

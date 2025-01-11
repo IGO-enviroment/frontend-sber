@@ -1,7 +1,6 @@
 import './app.css';
 import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { StoreProvider } from './providers/store';
 import { ErrorBoundary } from './providers/error-boundary';
 import { Config } from './config/route/config';
 import { setupWorker } from 'msw';
@@ -24,7 +23,6 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <SnackbarProvider maxSnack={5}>
-        <StoreProvider>
           <AuthStoreProvider>
             <AuthGuard>
               <CssBaseline />
@@ -35,7 +33,6 @@ export const App = () => {
               </ThemeProvider>
             </AuthGuard>
           </AuthStoreProvider>
-        </StoreProvider>
       </SnackbarProvider>
     </QueryClientProvider>
   );

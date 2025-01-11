@@ -10,14 +10,14 @@ const NAVIGATION: Navigation = [
     segment: 'practices',
     title: 'Список практик',
   },
-  {
-    segment: 'profile',
-    title: 'Профиль',
-  },
-  {
-    segment: 'ui',
-    title: 'ui'
-  }
+  // {
+  //   segment: 'profile',
+  //   title: 'Профиль',
+  // },
+  // {
+  //   segment: 'ui',
+  //   title: 'ui'
+  // }
 ];
 
 const Brand = {

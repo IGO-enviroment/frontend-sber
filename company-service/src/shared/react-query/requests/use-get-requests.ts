@@ -10,8 +10,23 @@ export const useGetRequest = (id: string | undefined) =>
     enabled: !!id
   });
 
+  export const useGetRequest2 = (id: string | undefined) =>
+    useQuery({
+      queryKey: requstsKeys.list(),
+      queryFn: () => getAllRequests2(id as string),
+      enabled: !!id
+    });
+
+// export const getAllRequests = (id: string, options?: SecondParameter<typeof customAxiosInstance>) => {
+//   return customAxiosInstance<ReqyestsDTO[]>({ url: `/requests?practice_id=${id}`, method: 'get' }, options);
+// };
+
 export const getAllRequests = (id: string, options?: SecondParameter<typeof customAxiosInstance>) => {
-  return customAxiosInstance<ReqyestsDTO[]>({ url: `/requests?practice_id=${id}`, method: 'get' }, options);
+  return customAxiosInstance<ReqyestsDTO[]>({ url: `/requests/${id}`, method: 'get' }, options);
+};
+
+export const getAllRequests2 = (id: string, options?: SecondParameter<typeof customAxiosInstance>) => {
+  return customAxiosInstance<ReqyestsDTO[]>({ url: `/requests2/${id}`, method: 'get' }, options);
 };
 
 export interface ReqyestsDTO {
