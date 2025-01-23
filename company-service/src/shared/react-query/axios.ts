@@ -30,7 +30,6 @@ const  BASE_APP_PATH  = "https://pfhp3j0r-3000.euw.devtunnels.ms/";
 export const AXIOS_INSTANCE = Axios.create({ baseURL: BASE_APP_PATH });
 
 AXIOS_INSTANCE.interceptors.request.use((config) => {
-  console.log(getCookie('HTTP_AUTHORIZATION'))
   config.headers.Authorization = `Bearer ${getCookie('HTTP_AUTHORIZATION')}`;
   return config;
 });

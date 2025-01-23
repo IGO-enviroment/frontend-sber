@@ -124,9 +124,9 @@ export const components: Components<Omit<Theme, 'components'>> = {
       transitionDuration: 500,
       anchor: 'right',
       sx: {
-        zIndex: 111111,
+        zIndex: 1300,
         '& .MuiDrawer-paper': {
-          width: '33vw',
+          width: '40vw',
         },
       },
     },

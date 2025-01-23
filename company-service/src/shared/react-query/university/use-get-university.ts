@@ -1,7 +1,7 @@
 import { AnyObjectType, SecondParameter } from '../../types';
 import { customAxiosInstance } from '../axios.ts';
 import { useQuery } from '@tanstack/react-query';
-import { practicesKeys, universityKeys } from '../query-keys.ts';
+import { universityKeys } from '../query-keys.ts';
 
 export const useGetUniversity = () => useQuery({
   queryKey: universityKeys.list(),
