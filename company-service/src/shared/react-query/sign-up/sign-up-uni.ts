@@ -1,4 +1,4 @@
-import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { SecondParameter } from '../../types';
 import { customAxiosInstance } from '../axios';
 import { AxiosError } from 'axios';

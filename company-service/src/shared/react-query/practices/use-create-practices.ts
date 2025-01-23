@@ -1,5 +1,5 @@
 import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
-import { practicesKeys, signUpKeys } from '../query-keys';
+import { practicesKeys } from '../query-keys';
 import { SecondParameter } from '../../types';
 import { customAxiosInstance } from '../axios';
 import { AxiosError } from 'axios';
@@ -29,6 +29,5 @@ export interface CreatePracticeDTO {
   work_schedule: string,
   competencies: string[]
   limit: number,
-  start_at?: Date | string,
   university_id: number
 }

@@ -39,10 +39,12 @@ export const PracticeDrawer: FC<PracticeDrawerProps> = ({ closeDrawer, isVisible
          <Container sx={{ my: "40px" }}>
             <ControlledForm methods={methods} onSubmit={methods.handleSubmit(handleSubmit)}>
                   <Stack sx={{ gap: "20px", mb: "20px" }}>
-                     <TextField {...methods.register("title")} label="name" variant="outlined" />
+                     <TextField {...methods.register("title")} label="title" variant="outlined" />
                      <TextField {...methods.register("description")} label="description" variant="outlined" />
-                     <TextField {...methods.register("work_schedule")} label="publish" variant="outlined" />
-                     <TextField {...methods.register("limit")} label="addressValue" variant="outlined" />
+                     <TextField {...methods.register("work_schedule")} label="work_schedule" variant="outlined" />
+                     <TextField {...methods.register("limit")} label="limit" variant="outlined" />
+                     <TextField {...methods.register("university_id")} label="university_id" variant="outlined" />
+                     <TextField {...methods.register("competencies")} label="competencies" variant="outlined" />
                   </Stack>
                   <Button type="submit">Сохранить</Button>
             </ControlledForm>
