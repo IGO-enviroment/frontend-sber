@@ -4,7 +4,7 @@ import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage
 
 export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> =
     fetchBaseQuery({
-        baseUrl: 'https://2f89-193-0-185-147.ngrok-free.app/v2',
+        baseUrl: 'https://pfhp3j0r-3000.euw.devtunnels.ms/v2/',
         prepareHeaders: async (headers) => {
             headers.set("ngrok-skip-browser-warning", "true");
             const token = await UserSecretStorageService.get();
