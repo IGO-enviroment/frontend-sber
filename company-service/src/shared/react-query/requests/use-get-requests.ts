@@ -10,6 +10,10 @@ export const useGetRequest = (id: string | undefined) =>
     enabled: !!id
   });
 
+// export const getAllRequests = (id: string, options?: SecondParameter<typeof customAxiosInstance>) => {
+//   return customAxiosInstance<ReqyestsDTO[]>({ url: `/requests?practice_id=${id}`, method: 'get' }, options);
+// };
+
 export const getAllRequests = (id: string, options?: SecondParameter<typeof customAxiosInstance>) => {
   return customAxiosInstance<ReqyestsDTO[]>({ url: `/v2/candidates?practice_id=${id}`, method: 'get' }, options);
 };
