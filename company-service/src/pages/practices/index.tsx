@@ -30,7 +30,7 @@ export const Practices = () => {
           <h1>Список практик</h1>
           <Button onClick={openDrawer}>Добавить практику</Button>
         </Box>
-        <Stack sx={{ gap: 5 }}>{data?.map((props) => <PracticeCard {...props} />)}</Stack>
+        <Stack sx={{ gap: 5 }}>{data?.map((props) => <PracticeCard {...props} key={props.id} />)}</Stack>
       </Container>
       {isMounted && <PracticeDrawer closeDrawer={closeDrawer}  isVisible={isVisible} />}
       <SuccessToast isVisible={isVisibleToast} closeToast={closeToast} text={'Мероприятие успешно создано'} />
