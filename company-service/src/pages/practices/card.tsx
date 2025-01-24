@@ -21,7 +21,7 @@ export const PracticeCard = ({
   views,
 }: Practice) => {
   return (
-    <Link to={`/practices/${id}`}>
+    <Link to={`/practices/${id}/info`}>
       <Paper sx={{ padding: "15px 25px", borderRadius: 5 }}>
         <Stack sx={{ gap: 1 }}>
           <Typography variant={"h4"}>{title}</Typography>

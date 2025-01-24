@@ -15,7 +15,7 @@ export const useSignUpUni = (options?: UseMutationOptions<unknown, AxiosError, S
 
 export const postSignUp = (signUpDTO: SignUpDTO, options?: SecondParameter<typeof customAxiosInstance>) => {
   return customAxiosInstance(
-    { url: `/university`, method: 'post', headers: { 'Content-Type': 'application/json' }, data: signUpDTO },
+    { url: `/v2/organization`, method: 'post', headers: { 'Content-Type': 'application/json' }, data: signUpDTO },
     options,
   );
 };

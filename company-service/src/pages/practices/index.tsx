@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { PracticeCard } from './card';
 import { PracticeDrawer } from './practice-drawer';
+import { useGetDialogsList } from '../../shared/react-query/dialogs/use-get-dialogs-list';
 
 export const Practices = () => {
   const { data, isLoading } = useGetAllPractices();
@@ -18,7 +19,7 @@ export const Practices = () => {
   const { isVisible, closeDrawer, openDrawer, isMounted } = useDrawerState();
   const { isVisible: isVisibleToast, closeToast } = useToast();
 
-  console.log(data);
+
 
   if (isLoading) return <CircularProgress />
 

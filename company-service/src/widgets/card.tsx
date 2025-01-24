@@ -7,7 +7,7 @@ export interface PersonCard {
 
 export const PersonCard = ({ data }: PersonCard) => {
   return (
-    <Link to={`/practices/${data.id}`}>
+    <Link to={`/candidates/${data.id}`}>
       <Paper sx={{ padding: '15px 25px', borderRadius: 5 }}>
         <Stack sx={{ gap: 1 }}>
           <Typography
