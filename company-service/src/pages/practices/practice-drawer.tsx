@@ -1,10 +1,12 @@
-import React, { FC } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { Button, Container, Drawer, Stack, TextField } from "@mui/material";
-import { useToast } from "../../shared/hooks/use-toast";
-import { SuccessToast } from "../../shared/components/toast/success-toast";
-import { CreatePracticeDTO, useCreatePractices } from "../../shared/react-query/practices/use-create-practices";
-import { ControlledForm } from "../../shared/components/ControlledForm";
+import  { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { Button, Container, Drawer, Stack, TextField } from '@mui/material';
+import { useToast } from '../../shared/hooks/use-toast';
+import { SuccessToast } from '../../shared/components/toast/success-toast';
+import { CreatePracticeDTO, useCreatePractices } from '../../shared/react-query/practices/use-create-practices';
+import { ControlledForm } from '../../shared/components/ControlledForm';
+import { useGetUniversity } from '../../shared/react-query/university/use-get-university.ts';
+import { SelectChip } from '../../shared/components/select.tsx';
 
 interface PracticeDrawerProps {
    isVisible: boolean;
@@ -17,6 +19,8 @@ export const PracticeDrawer: FC<PracticeDrawerProps> = ({ closeDrawer, isVisible
       defaultValues: editPractice ?? null,
    });
    const { isVisible: isVisibleToast, openToast, closeToast } = useToast();
+   const {data, isLoading} = useGetUniversity()
+
 
    const {mutateAsync: createPractice} = useCreatePractices({
     onSuccess: () => {
@@ -27,22 +31,25 @@ export const PracticeDrawer: FC<PracticeDrawerProps> = ({ closeDrawer, isVisible
 //    const {mutateAsync: updatePractice} = useUpdatePractices()
 
 
-   const handleSubmit = async (data: any) => {
+   const handleSubmit = async (data: CreatePracticeDTO) => {
+     const limit = data.limit as unknown as string
       if (editPractice) {
         //   updatePractice({ data, id: editArea.id });
          return;
       }
-      createPractice(data);
+      createPractice({ ...data, limit: Number(limit) });
    };
    return (
       <Drawer open={isVisible} onClose={() => closeDrawer()} transitionDuration={500} anchor="right" >
          <Container sx={{ my: "40px" }}>
             <ControlledForm methods={methods} onSubmit={methods.handleSubmit(handleSubmit)}>
                   <Stack sx={{ gap: "20px", mb: "20px" }}>
-                     <TextField {...methods.register("title")} label="name" variant="outlined" />
+                     <TextField {...methods.register("title")} label="title" variant="outlined" />
                      <TextField {...methods.register("description")} label="description" variant="outlined" />
-                     <TextField {...methods.register("work_schedule")} label="publish" variant="outlined" />
-                     <TextField {...methods.register("limit")} label="addressValue" variant="outlined" />
+                     <TextField {...methods.register("work_schedule")} label="work_schedule" variant="outlined" />
+                     <TextField {...methods.register("limit")} label="limit" variant="outlined" />
+                     <TextField {...methods.register("start_at")} label="start_at" variant="outlined" />
+                     <SelectChip fieldName="university_id" label="university_id" names={data ?? []} isLoading={isLoading} />
                   </Stack>
                   <Button type="submit">Сохранить</Button>
             </ControlledForm>

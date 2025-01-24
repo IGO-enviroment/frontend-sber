@@ -1,141 +1,146 @@
-import { AppProvider, AuthProvider, SignInPage } from '@toolpad/core';
+import { AppProvider, AuthProvider, AuthResponse, SignInPage } from '@toolpad/core';
 import { useTheme } from '@mui/material/styles';
 import Link from '@mui/material/Link';
+import { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
+import { setCookie } from '../../shared/cookies/set';
+import { SignInDTO, useSignUpUni } from '../../shared/react-query/sign-in/use-sign-in.ts';
+import { useGetUser } from '../../shared/react-query/sign-in/use-get-user.ts';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 const providers: AuthProvider[] = [{ id: 'credentials', name: 'Email and Password' }];
 
 export const LoginPage = () => {
-  const signIn = () => {};
+
+  const { mutateAsync } = useSignUpUni();
+  const { setIsAuth } = useAuthContext()
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+
+
+  const signIn = async (formData: SignInDTO): Promise<AuthResponse> => {
+    try {
+      const res = await mutateAsync(formData);
+      console.log(res)
+      setCookie('HTTP_AUTHORIZATION', res.access_token);
+      setIsAuth?.(true)
+      login();
+      navigate('/practices')
+    }catch (e) {
+      console.log(e)
+    }
+
+    return {};
+  };
+
   const theme = useTheme();
+
   return (
     <AppProvider theme={theme}>
-      <SignInPage signIn={signIn} providers={providers} slots={{
-        signUpLink: () => <Link href='/sign-up'>sign-up</Link>
+      <SignInPage signIn={(_provider, formData) => signIn(formData)} providers={providers} slots={{
+        signUpLink: () => <Link href="/sign-up">sign-up</Link>,
       }} />
     </AppProvider>
   );
 };
 
 
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import CircularProgress from "@mui/material/CircularProgress";
-import { setCookie } from '../../shared/cookies/set';
-import { AnyObjectType } from '../../shared/types';
-import Axios, { AxiosRequestConfig } from 'axios';
-import { getCookie } from '../../shared/cookies/get';
-
-
-
-const  BASE_APP_PATH  = "https://vitrina-urfu.ru";
-
-export const AXIOS_INSTANCE = Axios.create({ baseURL: BASE_APP_PATH });
-
-AXIOS_INSTANCE.interceptors.request.use((config) => {
-  config.headers.Authorization = getCookie("auth");
-  config.headers["ngrok-skip-browser-warning"] = "true";
-  return config;
-});
-
-
-
-export interface IAuthStore {
-   isAuth: boolean;
-   setIsAuth: Dispatch<SetStateAction<boolean>>;
-}
-  //@ts-ignore
-export const authContext = createContext<IAuthStore>(null);
-
-export const useAuthContext = () => {
-   return useContext(authContext);
+type AuthContextType = {
+  isAuthenticated: boolean;
+  login: () => void;
+  logout: () => void;
 };
 
-export const AuthStoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  //@ts-ignore
-   const [isAuth, setIsAuth] = useState<false>(null);
-  //@ts-ignore
-   return <authContext.Provider value={{ isAuth, setIsAuth }}>{children}</authContext.Provider>;
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProviderComponent: FC<{ children: ReactNode }> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const login = () => setIsAuthenticated(true);
+  const logout = () => setIsAuthenticated(false);
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export const userContext = createContext(null);
-
-export const useUserContext = () => {
-   const userStore = useContext(userContext);
-
-   return { userStore };
+// Кастомный хук для удобного использования контекста
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth должен использоваться внутри AuthProviderComponent');
+  }
+  return context;
 };
 
-export const UserStoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
-   const [user, setUser] = useState<any>(null);
-  //@ts-ignore
-   return <userContext.Provider value={{ user, setUser }}>{children}</userContext.Provider>;
+type ProtectedRouteProps = {
+  children: ReactNode;
 };
 
-const fetchUser = async () => {
-   const res = await AXIOS_INSTANCE.get("/v1/profile", {
-      headers: {
-         "ngrok-skip-browser-warning": "true",
-      },
-   });
+export const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  const { error, isLoading} = useGetUser()
 
-   console.log(res);
-   return res.data;
-};
+  if (isLoading) return <CircularProgress/>
 
-const login = async ({ email, password }: { email: string; password: string }) => {
-   const res = await AXIOS_INSTANCE.post(
-      "/auth/login",
-      {
-         email,
-         password,
-      },
-      {
-         headers: {
-            "ngrok-skip-browser-warning": "true",
-         },
-      },
-   );
-
-   console.log(res);
-
-   const { name, value, expires } = res.data;
-   console.log(name, value, { expires });
-   setCookie(name, value, { expires });
-};
-export const AuthGuard: FC<{ children: ReactNode }> = ({ children }) => {
-
+  // @ts-ignore
+  // if (!isAuthenticated || error?.status === 403) {
+  //   return <Navigate to="/login" replace />;
+  // }
 
   return <>{children}</>;
 };
 
-interface ILoginFormProps {
-   setIsLoading: (isLoading: boolean) => void;
+
+//
+export interface IAuthStore {
+  isAuth: boolean | null;
+  setIsAuth?: Dispatch<SetStateAction<boolean | null>>;
 }
 
-export const LoginForm: FC<ILoginFormProps> = ({ setIsLoading }) => {
-   const { userStore } = useUserContext();
-   const methods = useForm<AnyObjectType>();
-   const { setIsAuth } = useAuthContext();
+export const authContext = createContext<IAuthStore>({
+  isAuth: null
+});
 
-   const submitForm = async ({ email, password }: { email: string; password: string }) => {
-      await login({ email: email, password });
-      const user = await fetchUser();
-  //@ts-ignore
-      userStore?.setUser(user);
-      setIsAuth(true);
-      setIsLoading(false);
-   };
+export const useAuthContext = () => {
+  return useContext(authContext);
+};
+export const AuthStoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [isAuth, setIsAuth] = useState<boolean | null>(null);
+  return <authContext.Provider value={{ isAuth, setIsAuth }}>{children}</authContext.Provider>;
+};
 
-   return (
-      <Box display="flex" alignItems="center" justifyContent="center">
-         <form onSubmit={methods.handleSubmit(submitForm)}>
-            <TextField {...methods.register("email")} />
-            <TextField {...methods.register("password")} type="password" />
-            <Button type="submit">Войти</Button>
-         </form>
-      </Box>
-   );
+export const AuthGuard: FC<{ children?: ReactNode }> = ({ children }) => {
+  const {  setIsAuth } = useAuthContext();
+  const { error, status} = useGetUser()
+
+
+  const [isAuthRes, setIsAuthRes] = useState(false);
+  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    // @ts-ignore
+    if (error.status === 403) {
+      setIsAuth?.(false)
+      setIsAuthRes(false)
+    }
+
+    if (status === 'success') {
+      setIsAuth?.(true)
+      setIsAuthRes(true)
+    }
+  }, [status]);
+
+
+  if (!isAuthRes) {
+    navigate('login')
+    return null;
+  }
+
+  return <>{children}</>;
 };

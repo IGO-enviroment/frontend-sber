@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { AnyFunctionType, AnyObjectType } from '../shared/types';
-import { Table, TableHead, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { AnyObjectType } from '../shared/types';
+import { CircularProgress, Stack } from '@mui/material';
 import { PersonCard } from './card';
 
 interface PersonListProps {
@@ -12,5 +12,5 @@ export const PersonList: FC<PersonListProps> = ({ data, isLoading }) => {
 
   if (isLoading) return <CircularProgress />;
 
-  return <Stack sx={{gap: '20px'}}>{data?.map((item: any) => <PersonCard {...item} />)}</Stack>;
+  return <Stack sx={{gap: '20px'}}>{data?.map((item: any) => <PersonCard data={item} key={item.id} />)}</Stack>;
 };

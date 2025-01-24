@@ -11,7 +11,7 @@ export const useGetRequest = (id: string | undefined) =>
   });
 
 export const getAllRequests = (id: string, options?: SecondParameter<typeof customAxiosInstance>) => {
-  return customAxiosInstance<ReqyestsDTO[]>({ url: `/requests?practice_id=${id}`, method: 'get' }, options);
+  return customAxiosInstance<ReqyestsDTO[]>({ url: `/v2/candidates?practice_id=${id}`, method: 'get' }, options);
 };
 
 export interface ReqyestsDTO {

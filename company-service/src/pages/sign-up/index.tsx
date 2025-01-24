@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Stack, TextField, Button, Box, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { ControlledForm } from '../../shared/components/ControlledForm';
 import { SignUpDTO, useSignUp } from '../../shared/react-query/sign-up/sign-up';
 import { useValidation } from '../../shared/hooks/use-validation';

@@ -1,5 +1,5 @@
 import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
-import { practicesKeys, signUpKeys } from '../query-keys';
+import { practicesKeys } from '../query-keys';
 import { SecondParameter } from '../../types';
 import { customAxiosInstance } from '../axios';
 import { AxiosError } from 'axios';
@@ -18,7 +18,7 @@ export const useCreatePractices = (options?: UseMutationOptions<unknown, AxiosEr
 
 export const createPractice = (createPracticeDTO: CreatePracticeDTO, options?: SecondParameter<typeof customAxiosInstance>) => {
   return customAxiosInstance(
-    { url: `/organization`, method: 'post', headers: { 'Content-Type': 'application/json' }, data: createPracticeDTO },
+    { url: `v2/practice`, method: 'post', headers: { 'Content-Type': 'application/json' }, data: createPracticeDTO },
     options,
   );
 };
@@ -29,6 +29,6 @@ export interface CreatePracticeDTO {
   work_schedule: string,
   competencies: string[]
   limit: number,
-  start_at?: Date | string,
   university_id: number
+  start_at: string
 }
