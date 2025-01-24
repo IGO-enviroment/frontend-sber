@@ -25,7 +25,7 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 import { getCookie } from '../cookies/get.ts';
 
-const  BASE_APP_PATH  = "https://pfhp3j0r-3000.euw.devtunnels.ms/";
+const  BASE_APP_PATH  = "https://user253428114-mdvr3lls.tunnel.vk-apps.com/";
 
 export const AXIOS_INSTANCE = Axios.create({ baseURL: BASE_APP_PATH });
 
