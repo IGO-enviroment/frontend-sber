@@ -12,5 +12,5 @@ export const PersonList: FC<PersonListProps> = ({ data, isLoading }) => {
 
   if (isLoading) return <CircularProgress />;
 
-  return <Stack sx={{gap: '20px'}}>{data?.map((item: any) => <PersonCard data={item} />)}</Stack>;
+  return <Stack sx={{gap: '20px'}}>{data?.map((item: any) => <PersonCard data={item} key={item.id} />)}</Stack>;
 };

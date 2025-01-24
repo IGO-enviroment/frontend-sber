@@ -1,15 +1,18 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import styled from 'styled-components';
 import { Box, Tab, Tabs } from '@mui/material';
-import { NavigateOptions, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { NavigateOptions, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export interface IPageLayoutProps {
   title: string;
   buttonsContent?: ReactNode;
 }
 
+const linkArr = ['info', 'candidates', 'interns']
+
 export const DetailPageLayout: FC<IPageLayoutProps> = ({ title, buttonsContent }) => {
-  const [value, setValue] = React.useState(0);
+  const location = useLocation();
+  const [value, setValue] = React.useState(linkArr.findIndex((item) => item === location.pathname.split('/').slice(-1)[0]));
   const params = useParams();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
